@@ -13,7 +13,7 @@
  
 2. Node.js와 npm을 설치한다.
 
-   *참고: [Node.js\_설치](https://joyfulhome.tistory.com/180, "설치하기")*
+   *참고: [Node.js\_설치](https://joyfulhome.tistory.com/180 "설치하기")*
    
 3. 프로젝트 상단 위치에서 터미널로 다음 명령어를 입력한다.
 
