@@ -60,25 +60,29 @@ def hello():
         time_array = []
 
         r1 = p1.findall(chunk)
-        for date in r1:
-            print(date)
-            time_array.append(time.strptime(date, "%Y.%m.%d"))
+        if len(r1) != 0:
+            for date in r1:
+                print(date)
+                time_array.append(time.strptime(date, "%Y.%m.%d"))
             return return_value(time_array)
 
+        
         r2 = p2.findall(chunk)
-        for date in r2:
-            print(date)
-            time_array.append(time.strptime(date, "%y.%m.%d"))
-            return return_value(time_array)
-
-        r3 = p3.findall(chunk)
-        for date in r3:
-            date = "23." + date
-            time_product = time.strptime(date, "%y.%m.%d")
-            time_array.append(time_product)
+        if len(r2) != 0:
+            for date in r2:
+                print(date)
+                time_array.append(time.strptime(date, "%y.%m.%d"))
             return return_value(time_array)
         
 
+        r3 = p3.findall(chunk)
+        if len(r3) != 0:
+            for date in r3:
+                date = "23." + date
+                time_product = time.strptime(date, "%y.%m.%d")
+                time_array.append(time_product)
+            return return_value(time_array)
+        
     return jsonify({"result":"not found"})\
     
 
