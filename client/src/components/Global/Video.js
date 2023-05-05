@@ -4,7 +4,10 @@ import styles from "./stylesheets/Video.module.css";
 function Video({ videoRef }) {
   const getWebcam = () => {
     return navigator.mediaDevices.getUserMedia({
-      video: true,
+      video: {
+        width: 300,
+        height: 400,
+      },
       audio: false,
     });
   };
