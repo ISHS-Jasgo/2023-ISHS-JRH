@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
-import Video from "../components/Expiration/Video";
-import Canvas from "../components/Expiration/Canvas";
+import Video from "./../components/Global/Video";
+import Canvas from "./../components/Global/Canvas";
 
 function Expiration() {
   const videoRef = useRef(null);

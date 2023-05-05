@@ -110,7 +110,7 @@ def hi():
         m = p.match(chunk)
 
         if m:
-            return jsonify({"result":chunk})
+            return jsonify({"result":m.group()})
 
     return jsonify({"result":"not found"})
 

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import styles from "./Video.module.css";
+import styles from "./stylesheets/Video.module.css";
 
 function Video({ videoRef }) {
   const getWebcam = () => {
@@ -15,11 +15,7 @@ function Video({ videoRef }) {
     });
   }, []);
 
-  return (
-    <div className={styles.div}>
-      <video ref={videoRef} className={styles.video} autoPlay />
-    </div>
-  );
+  return <video ref={videoRef} className={styles.video} autoPlay />;
 }
 
 export default Video;
