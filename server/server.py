@@ -49,41 +49,49 @@ def hello():
     response = client.text_detection(image=image)
     texts = response.text_annotations
 
+    p1 = re.compile(r'\d{4}[.]\d{2}[.]\d{2}') #2023-05-01
+    p2 = re.compile(r'\d{2}[.]\d{2}[.]\d{2}') #23-05-01
+    p3 = re.compile(r'\d{2}[.]\d{2}') #05-01
+
+    dateType = 0 # 1 || 2 || 3,  0: pending
+    time_array = []
 
     for text in texts:
         chunk = text.description;
         #print(chunk)
-        p1 = re.compile(r'\d{4}[.]\d{2}[.]\d{2}') #2023-05-01
-        p2 = re.compile(r'\d{2}[.]\d{2}[.]\d{2}') #23-05-01
-        p3 = re.compile(r'\d{2}[.]\d{2}') #05-01
 
-        time_array = []
+        try:
+            r1 = p1.findall(chunk)
+            if len(r1) != 0 and (dateType == 0 or dateType == 1):
+                dateType = 1
+                for date in r1:
+                    print(date)
+                    time_array.append(time.strptime(date, "%Y.%m.%d"))
 
-        r1 = p1.findall(chunk)
-        if len(r1) != 0:
-            for date in r1:
-                print(date)
-                time_array.append(time.strptime(date, "%Y.%m.%d"))
-            return return_value(time_array)
+            
+            r2 = p2.findall(chunk)
+            if len(r2) != 0 and (dateType == 0 or dateType == 2):
+                dateType = 2
+                for date in r2:
+                    print(date)
+                    time_array.append(time.strptime(date, "%y.%m.%d"))
+            
 
+            r3 = p3.findall(chunk)
+            if len(r3) != 0 and (dateType == 0 or dateType == 3):
+                dateType = 3
+                for date in r3:
+                    date = "23." + date
+                    time_product = time.strptime(date, "%y.%m.%d")
+                    time_array.append(time_product)
         
-        r2 = p2.findall(chunk)
-        if len(r2) != 0:
-            for date in r2:
-                print(date)
-                time_array.append(time.strptime(date, "%y.%m.%d"))
-            return return_value(time_array)
-        
+        except:
+            return jsonify({"result":"not found"})
 
-        r3 = p3.findall(chunk)
-        if len(r3) != 0:
-            for date in r3:
-                date = "23." + date
-                time_product = time.strptime(date, "%y.%m.%d")
-                time_array.append(time_product)
-            return return_value(time_array)
+    return return_value(time_array)
+
+       
         
-    return jsonify({"result":"not found"})\
     
 
 @app.route("/pummok", methods=['POST'])
@@ -121,6 +129,8 @@ def return_value(time_array):
         print("good!")
         res_date_string = time.strftime("%Y-%m-%d", res_date)
         return jsonify({"result":res_date_string})
+    else:
+        return jsonify({"result":"not found"})
 
 
 

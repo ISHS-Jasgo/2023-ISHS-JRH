@@ -5,7 +5,7 @@ function Home() {
   const navigate = useNavigate();
   const navigateTo = (path) => {
     navigate(path);
-    console.log("I'm clicked!!");
+    console.log("Redirecting...");
   };
 
   return (

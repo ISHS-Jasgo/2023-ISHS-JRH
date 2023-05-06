@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import Video from "./../components/Global/Video";
-import Canvas from "./../components/Global/Canvas";
+import { useNavigate } from "react-router-dom";
+import Video from "../../components/Global/Video";
+import Canvas from "../../components/Global/Canvas";
 
 function Nutrients() {
   const [productNum, setProductNum] = useState("");
@@ -11,6 +12,12 @@ function Nutrients() {
   const search = useRef(true);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
+
+  const navigate = useNavigate();
+  const navigateTo = (path, params) => {
+    navigate(path, { state: params });
+    console.log("Redirecting...");
+  };
 
   const drawToCanvas = () => {
     try {
@@ -24,43 +31,75 @@ function Nutrients() {
   };
 
   const sendImage = () => {
-    if (canvasRef.current) {
-      const image = canvasRef.current
-        .toDataURL()
-        .replace("data:image/png;base64,", "");
-      let formData = new FormData();
-      formData.append("imageInfo", image);
+    try {
+      if (canvasRef.current) {
+        const image = canvasRef.current
+          .toDataURL()
+          .replace("data:image/png;base64,", "");
+        let formData = new FormData();
+        formData.append("imageInfo", image);
 
-      fetch("https://0917ba2.pythonanywhere.com/pummok", {
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data.result);
-          if (data.result !== "not found" && !isNumDetected) {
-            setIsNumDetected(true);
-          }
-          setResultArr((current) => [...current, data.result]);
-        });
+        fetch("https://0917ba2.pythonanywhere.com/pummok", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            //console.log(data.result);
+            if (data.result !== "not found" && !isNumDetected) {
+              setIsNumDetected(true);
+            }
+            setResultArr((current) => [...current, data.result]);
+          });
+      }
+    } catch (err) {
+      console.log(err);
     }
+
     //console.log(image);
   };
 
   const getProductName = async (productNum) => {
-    const url = `http://openapi.foodsafetykorea.go.kr/api/8afc960ac75f4a4e9426/I1250/json/1/1/PRDLST_REPORT_NO=${productNum}`;
-    const response = await fetch(url);
-    const json = await response.json();
-    console.log(json);
-    return json.I1250.row[0].PRDLST_NM;
+    //try: 일반 식품
+    let url = `http://openapi.foodsafetykorea.go.kr/api/8afc960ac75f4a4e9426/I1250/json/1/1/PRDLST_REPORT_NO=${productNum}`;
+    let response = await fetch(url);
+    let json = await response.json();
+    if (json.I1250.total_count !== "0") {
+      console.log(json);
+      return json.I1250.row[0].PRDLST_NM;
+    }
+    console.log("not found first");
+
+    //try: 축산물
+    url = `http://openapi.foodsafetykorea.go.kr/api/8afc960ac75f4a4e9426/I1310/json/1/1/PRDLST_REPORT_NO=${productNum}`;
+    response = await fetch(url);
+    json = await response.json();
+    if (json.I1310.total_count !== "0") {
+      console.log(json);
+      return json.I1310.row[0].PRDLST_NM;
+    }
+
+    //not found
+    throw new Error("productNumber not found");
   };
 
   const getNutrients = async (productName) => {
+    //space to underbar
     const newName = productName.replaceAll(" ", "_");
+
+    //fetch nutrients by productName
     const url = `https://openapi.foodsafetykorea.go.kr/api/8afc960ac75f4a4e9426/I2790/json/1/1/DESC_KOR=${newName}`;
     const response = await fetch(url);
     const json = await response.json();
+
+    //throw Error
+    if (json.I2790.total_count === "0") {
+      throw new Error("품목보고번호에 일치하는 제품이 없습니다.");
+    }
+
     console.log(json);
+
+    //set nutrients
     const calories = json.I2790.row[0].NUTR_CONT1;
     const carbohydrate = json.I2790.row[0].NUTR_CONT2;
     const protein = json.I2790.row[0].NUTR_CONT3;
@@ -70,8 +109,11 @@ function Nutrients() {
     const cholesterol = json.I2790.row[0].NUTR_CONT7;
     const saturatedFat = json.I2790.row[0].NUTR_CONT8;
     const transFat = json.I2790.row[0].NUTR_CONT9;
+
+    //output Object
     const result = {};
-    const nContent = {
+    const nutrients = {
+      name: productName,
       calories: calories,
       nutrients: {
         carbohydrate: carbohydrate,
@@ -84,7 +126,7 @@ function Nutrients() {
         transFat: transFat,
       },
     };
-    result[productName] = nContent;
+    result["nuts"] = nutrients;
     //console.log(result);
     return result;
   };
@@ -97,10 +139,6 @@ function Nutrients() {
       }
     }, 450);
     return () => clearInterval(id);
-
-    //test: 포카칩 어니언맛
-    //report: 포카칩 오리지널 -> 포카칩
-    //setProductNum("19870415003246");
   }, []);
 
   useEffect(() => {
@@ -110,7 +148,7 @@ function Nutrients() {
   }, [isNumDetected]);
 
   useEffect(() => {
-    if (resultArr.length >= 15) {
+    if (resultArr.length >= 12) {
       search.current = false;
       let { res, repeatCnt } = getMode(resultArr);
       if (res === "not found") {
@@ -132,8 +170,11 @@ function Nutrients() {
     if (!isFirstLoaded.current && productNum !== "") {
       getProductName(productNum)
         .then((productName) => getNutrients(productName))
-        .then((nutrients) => console.log(nutrients))
-        .then(() => setProductNum(""))
+        .then((nutrients) => {
+          console.log(nutrients);
+          setProductNum("");
+          navigateTo("/nutrients/result", { resNutrients: nutrients });
+        })
         .catch((err) => {
           console.log(err);
           console.log("product not found. begin to search.");
@@ -152,6 +193,7 @@ function Nutrients() {
   );
 }
 
+//get mode value of Array: arr
 function getMode(arr) {
   let obj = {};
   arr.forEach((res) => {
