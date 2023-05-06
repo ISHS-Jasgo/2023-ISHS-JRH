@@ -17,7 +17,7 @@ function App() {
         <Route path="/expiration" element={<Expiration />} />
         <Route path="/restaurant" element={<Restaurant />} />
         <Route path="/help" element={<Help />} />
-        <Route path="/" element={<Home />} />
+        <Route path={`${process.env.PUBLIC_URL}/`} element={<Home />} />
       </Routes>
     </Router>
   );
