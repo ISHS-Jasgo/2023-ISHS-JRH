@@ -28,7 +28,7 @@ function getDevice() {
 
 function getSpeed() {
   let device = getDevice();
-  if (device === "ios") return 1;
+  if (device === "ios") return 1.2;
   else if (device === "android") return 1.5;
   else return 2;
 }
