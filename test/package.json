@@ -1,5 +1,7 @@
 {
+  "type": "module",
   "dependencies": {
+    "@google-cloud/text-to-speech": "^4.2.2",
     "node-sass": "^8.0.0"
   }
 }
