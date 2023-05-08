@@ -4,7 +4,7 @@ import Nutrients from "./routes/Nutrients/Nutrients";
 import NuResult from "./routes/Nutrients/NuResult";
 import Expiration from "./routes/Expiration/Expiration";
 import ExResult from "./routes/Expiration/ExResult";
-import Restaurant from "./routes/Restaurant";
+import Restaurant from "./routes/Restaurant/Restaurant";
 import Help from "./routes/Help";
 
 function App() {

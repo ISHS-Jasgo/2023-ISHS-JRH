@@ -127,6 +127,14 @@ function Nutrients() {
         transFat: transFat,
       },
     };
+
+    //set zero default value
+    for (let key in nutrients.nutrients) {
+      if (nutrients.nutrients[key] === "") {
+        nutrients.nutrients[key] = "0";
+      }
+    }
+
     result["nuts"] = nutrients;
     //console.log(result);
     return result;
@@ -140,7 +148,7 @@ function Nutrients() {
         drawToCanvas();
         sendImage();
       }
-    }, 380);
+    }, 300);
     return () => clearInterval(id);
   }, []);
 

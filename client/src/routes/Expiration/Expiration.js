@@ -66,13 +66,14 @@ function Expiration() {
     const id = setInterval(() => {
       drawToCanvas();
       sendImage();
-    }, 380);
+    }, 300);
     return () => clearInterval(id);
   }, []);
 
   useEffect(() => {
     if (isDateDetected) {
       console.log("date detected!");
+      stopSpeech();
       getSpeech("유통기한이 감지되었습니다.");
     }
   }, [isDateDetected]);
@@ -89,6 +90,7 @@ function Expiration() {
       } else {
         console.log("success!");
         console.log(`found result is ${res}`);
+        stopSpeech();
         getSpeech("유통기한을 찾았습니다.");
         setExpiration(res);
       }
