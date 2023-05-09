@@ -1,6 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "dependencies": {
     "@google-cloud/storage": "^6.10.0",
@@ -9,6 +10,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "gh-pages": "^5.0.0",
+    "google-auth-library": "^8.8.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -42,5 +44,8 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://0917ba.github.io/2023-ISHS-JRH/"
+  "homepage": "https://0917ba.github.io/2023-ISHS-JRH/",
+  "devDependencies": {
+    "react-error-overlay": "^6.0.9"
+  }
 }

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Global/Button";
 //import { getSpeech } from "../js/tts";
-//import { useEffect } from "react";
+import { useEffect } from "react";
 
 function Home() {
   const navigate = useNavigate();

@@ -1,35 +1,52 @@
-//이게 문제다.
-import textToSpeech from "@google-cloud/text-to-speech";
+function getSpeech(text) {
+  const lang = "ko-KR";
+  const utterThis = new SpeechSynthesisUtterance(text);
 
-const client = new textToSpeech.TextToSpeechClient({
-  keyFilename: "./../../../api/celestial-shore-380106-8271a95fb3ec.json",
-});
-
-async function getSpeech(text) {
-  const request = {
-    input: { text },
-    voice: { languageCode: "en-US", ssmlGender: "NEUTRAL" },
-    audioConfig: { audioEncoding: "LINEAR16" },
-  };
-
-  const [response] = client.synthesizeSpeech(request);
-
-  const audioContext = new AudioContext();
-  const audioBuffer = await audioContext.decodeAudioData(response.audioContent);
-  const audioSource = audioContext.createBufferSource();
-  audioSource.buffer = audioBuffer;
-  audioSource.connect(audioContext.destination);
-  audioSource.start();
+  utterThis.lang = lang;
+  utterThis.rate = getSpeed();
+  window.speechSynthesis.speak(utterThis);
 }
 
-// function getSpeech(text) {
-//   const lang = "ko-KR";
-//   const utterThis = new SpeechSynthesisUtterance(text);
+const audio = new Audio();
 
-//   utterThis.lang = lang;
-//   utterThis.rate = getSpeed();
-//   window.speechSynthesis.speak(utterThis);
-// }
+function textToSpeech(text) {
+  const url =
+    "https://texttospeech.googleapis.com/v1/text:synthesize?key=AIzaSyCxnSFvcQd6a17xfB4nDwDafJH_juHSNA0";
+  const data = {
+    input: {
+      text: text,
+    },
+    voice: {
+      languageCode: "ko-KR",
+      name: "ko-KR-Neural2-c",
+      ssmlGender: "MALE",
+    },
+    audioConfig: {
+      audioEncoding: "MP3",
+    },
+  };
+  const otherparam = {
+    headers: {
+      "content-type": "application/json; charset=UTF-8",
+    },
+    body: JSON.stringify(data),
+    method: "POST",
+  };
+  // 사운드 생성
+  fetch(url, otherparam)
+    .then((data) => {
+      return data.json();
+    })
+    .then((res) => {
+      audio.pause();
+      audio.src = `data:audio/mp3;base64,${res.audioContent}`;
+      audio.play();
+      //console.log(res.audioContent); // base64
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 
 function stopSpeech() {
   window.speechSynthesis.cancel();
@@ -57,4 +74,4 @@ function getSpeed() {
   else return 2;
 }
 
-export { getSpeech, stopSpeech, getDevice };
+export { getSpeech, stopSpeech, getDevice, textToSpeech };

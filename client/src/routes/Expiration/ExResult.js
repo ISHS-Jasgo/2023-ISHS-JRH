@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { getSpeech, stopSpeech } from "./../../js/tts";
+import { getSpeech, stopSpeech, textToSpeech } from "./../../js/tts";
 import { useEffect } from "react";
 
 function ExResult() {
@@ -9,7 +9,7 @@ function ExResult() {
   useEffect(() => {
     window.speechSynthesis.getVoices();
     stopSpeech();
-    getSpeech(ttsText);
+    textToSpeech(ttsText);
   }, []);
 
   return (
