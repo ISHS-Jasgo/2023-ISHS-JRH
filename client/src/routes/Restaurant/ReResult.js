@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 import { textToSpeech } from "./../../js/tts";
 import { useEffect } from "react";
 
-function NuResult() {
+function ReResult() {
   const location = useLocation();
   const result = location.state.resNutrients.nuts;
   const nutrients = result.nutrients;
@@ -29,4 +29,4 @@ function NuResult() {
   );
 }
 
-export default NuResult;
+export default ReResult;

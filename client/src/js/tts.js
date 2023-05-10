@@ -8,11 +8,12 @@ function getSpeech(text) {
 }
 
 const audio = new Audio();
+let canAudioPause = false;
 
-function textToSpeech(text) {
+async function textToSpeech(text, notImportant = false) {
   const url =
     "https://texttospeech.googleapis.com/v1/text:synthesize?key=AIzaSyCxnSFvcQd6a17xfB4nDwDafJH_juHSNA0";
-  const data = {
+  const audioData = {
     input: {
       text: text,
     },
@@ -29,23 +30,24 @@ function textToSpeech(text) {
     headers: {
       "content-type": "application/json; charset=UTF-8",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(audioData),
     method: "POST",
   };
+
   // 사운드 생성
-  fetch(url, otherparam)
-    .then((data) => {
-      return data.json();
-    })
-    .then((res) => {
-      audio.pause();
-      audio.src = `data:audio/mp3;base64,${res.audioContent}`;
-      audio.play();
-      //console.log(res.audioContent); // base64
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  try {
+    const fetchData = await fetch(url, otherparam);
+    const res = await fetchData.json();
+    console.log(canAudioPause);
+
+    if (canAudioPause) audio.pause();
+    audio.src = `data:audio/mp3;base64,${res.audioContent}`;
+    canAudioPause = notImportant;
+    audio.play();
+
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 function stopSpeech() {

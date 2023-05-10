@@ -5,9 +5,11 @@ import NuResult from "./routes/Nutrients/NuResult";
 import Expiration from "./routes/Expiration/Expiration";
 import ExResult from "./routes/Expiration/ExResult";
 import Restaurant from "./routes/Restaurant/Restaurant";
+import ReResult from "./routes/Restaurant/ReResult";
 import Help from "./routes/Help";
 
 function App() {
+  //<Route path={`${process.env.PUBLIC_URL}/`} element={<Home />} />
   return (
     <Router>
       <Routes>
@@ -16,6 +18,7 @@ function App() {
         <Route path="/expiration/result" element={<ExResult />} />
         <Route path="/expiration" element={<Expiration />} />
         <Route path="/restaurant" element={<Restaurant />} />
+        <Route path="/restaurant/result" element={<ReResult />} />
         <Route path="/help" element={<Help />} />
         <Route path={`${process.env.PUBLIC_URL}/`} element={<Home />} />
       </Routes>

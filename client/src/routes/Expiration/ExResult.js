@@ -1,20 +1,25 @@
 import { useLocation } from "react-router-dom";
-import { getSpeech, stopSpeech, textToSpeech } from "./../../js/tts";
-import { useEffect } from "react";
+import { textToSpeech } from "./../../js/tts";
+import { useEffect, useState } from "react";
 
 function ExResult() {
+  const [resText, setResText] = useState("");
   const location = useLocation();
-  const ttsText = `상품의 유통기한은 ${location.state.resDate} 입니다.`;
 
   useEffect(() => {
-    window.speechSynthesis.getVoices();
-    stopSpeech();
-    textToSpeech(ttsText);
+    let resDate = location.state.resDate;
+    resDate = resDate.replace("-", "년 ");
+    resDate = resDate.replace("-", "월 ");
+    resDate += "일";
+    console.log(resDate);
+    const ttsText = `상품의 유통기한은 ${resDate} 입니다.`;
+    setResText(ttsText);
+    textToSpeech(ttsText, false);
   }, []);
 
   return (
     <div>
-      <h1>{ttsText}</h1>
+      <h1>{resText}</h1>
     </div>
   );
 }

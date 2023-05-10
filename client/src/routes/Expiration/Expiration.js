@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getSpeech, stopSpeech, textToSpeech } from "../../js/tts";
+import { textToSpeech } from "../../js/tts";
 import Video from "../../components/Global/Video";
 import Canvas from "../../components/Global/Canvas";
 
@@ -63,19 +63,18 @@ function Expiration() {
   useEffect(() => {
     window.speechSynthesis.getVoices();
     //getSpeech("유통기한 탐색을 시작합니다.");
-    textToSpeech("유통기한 탐색을 시작합니다.");
+    textToSpeech("유통기한 탐색을 시작합니다.", true);
     const id = setInterval(() => {
       drawToCanvas();
       sendImage();
-    }, 300);
+    }, 250);
     return () => clearInterval(id);
   }, []);
 
   useEffect(() => {
     if (isDateDetected) {
       console.log("date detected!");
-      stopSpeech();
-      textToSpeech("유통기한이 감지되었습니다.");
+      textToSpeech("유통기한이 감지되었습니다.", false);
     }
   }, [isDateDetected]);
 
@@ -85,14 +84,12 @@ function Expiration() {
       let { res, repeatCnt } = getMode(resultArr);
       if (res === "not found") {
         console.log("failed.. begin to search");
-        textToSpeech("탐색중.");
+        textToSpeech("탐색중.", true);
         //getSpeech("유통기한을 찾지 못했습니다. 재검색합니다.");
         search.current = true;
       } else {
         console.log("success!");
         console.log(`found result is ${res}`);
-        stopSpeech();
-        textToSpeech("유통기한을 찾았습니다.");
         setExpiration(res);
       }
 

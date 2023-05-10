@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getSpeech, stopSpeech } from "./../../js/tts";
+import { textToSpeech } from "./../../js/tts";
 import Video from "../../components/Global/Video";
 import Canvas from "../../components/Global/Canvas";
 
@@ -142,20 +142,20 @@ function Nutrients() {
 
   useEffect(() => {
     window.speechSynthesis.getVoices();
-    getSpeech("품목보고번호 탐색을 시작합니다.");
+    textToSpeech("품목보고번호 탐색을 시작합니다.", true);
     const id = setInterval(() => {
       if (search.current) {
         drawToCanvas();
         sendImage();
       }
-    }, 300);
+    }, 250);
     return () => clearInterval(id);
   }, []);
 
   useEffect(() => {
     if (isNumDetected) {
       console.log("number detected!");
-      getSpeech("품목보고번호가 감지되었습니다.");
+      textToSpeech("품목보고번호가 감지되었습니다.", false);
     }
   }, [isNumDetected]);
 
@@ -165,13 +165,11 @@ function Nutrients() {
       let { res, repeatCnt } = getMode(resultArr);
       if (res === "not found") {
         console.log("failed.. begin to search");
-        getSpeech("탐색중.");
+        textToSpeech("탐색중.", true);
         search.current = true;
       } else {
         console.log("success!");
         console.log(`found result is ${res}`);
-        stopSpeech();
-        getSpeech("품목보고번호를 찾았습니다.");
         setProductNum(res);
       }
       //init
@@ -193,7 +191,7 @@ function Nutrients() {
         .catch((err) => {
           console.log(err);
           console.log("product not found. begin to search.");
-          getSpeech("일치하는 상품이 없습니다. 재탐색합니다.");
+          textToSpeech("일치하는 상품이 없습니다. 재탐색합니다.", false);
           search.current = true;
         });
     } else {
