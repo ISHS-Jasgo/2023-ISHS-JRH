@@ -9,6 +9,7 @@ function getSpeech(text) {
 
 const audio = new Audio();
 let canAudioPause = false;
+let isAudioEnded = false;
 
 async function textToSpeech(text, notImportant = false) {
   const url =
@@ -34,6 +35,11 @@ async function textToSpeech(text, notImportant = false) {
     method: "POST",
   };
 
+  audio.addEventListener("ended", () => {
+    console.log("audio ended!");
+    isAudioEnded = true;
+  });
+
   // 사운드 생성
   try {
     const fetchData = await fetch(url, otherparam);
@@ -44,10 +50,19 @@ async function textToSpeech(text, notImportant = false) {
     audio.src = `data:audio/mp3;base64,${res.audioContent}`;
     canAudioPause = notImportant;
     audio.play();
-
   } catch (err) {
     console.log(err);
   }
+
+  return new Promise((resolve) => {
+    let loop = setInterval(() => {
+      if (isAudioEnded) {
+        clearInterval(loop);
+        isAudioEnded = false;
+        resolve();
+      }
+    }, 100);
+  });
 }
 
 function stopSpeech() {

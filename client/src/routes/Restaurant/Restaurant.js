@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { textToSpeech } from "./../../js/tts";
 import { useNavigate } from "react-router-dom";
+import { textToSpeech } from "./../../js/tts";
+import { speechToText } from "../../js/stt";
 
 function Restaurant() {
   const navigate = useNavigate();
@@ -9,8 +10,8 @@ function Restaurant() {
     console.log("Redirecting...");
   };
 
-  let userRestaurant = "메가커피";
-  let userMenu = "아메리카노";
+  let userRestaurant = "";
+  let userMenu = "";
 
   const divOnClick = () => {};
 
@@ -60,24 +61,28 @@ function Restaurant() {
   };
 
   const getNutrients = async () => {
-    const url = `https://openapi.foodsafetykorea.go.kr/api/8afc960ac75f4a4e9426/I2790/json/1/100/DESC_KOR=${userMenu}&MAKER_NAME=${userRestaurant}`;
-    const response = await fetch(url);
-    const json = await response.json();
+    const fetchNutrients = async () => {
+      const url = `https://openapi.foodsafetykorea.go.kr/api/8afc960ac75f4a4e9426/I2790/json/1/100/DESC_KOR=${userMenu}&MAKER_NAME=${userRestaurant}`;
+      const response = await fetch(url);
+      const json = await response.json();
 
-    if (json.I2790.total_count === "0") {
-      throw new Error("일치하는 제품이 없습니다.");
-    }
+      if (json.I2790.total_count === "0") {
+        throw new Error("일치하는 제품이 없습니다.");
+      }
 
-    //console.log(json);
+      //console.log(json);
+      return json;
+    };
 
     const selectProduct = async () => {
       let isCorrectRes = false;
       let nutrients = null;
 
       for (const nutrientsData of json.I2790.row) {
-        await textToSpeech(`찾으시는 제품이 ${nutrientsData.DESC_KOR} 인가요?`);
         console.log(`찾으시는 제품이 ${nutrientsData.DESC_KOR} 인가요?`);
-        let userResponse = await getUserVoice();
+        await textToSpeech(`찾으시는 제품이 ${nutrientsData.DESC_KOR} 인가요?`);
+
+        const userResponse = await speechToText(2500);
         if (userResponse === "네") {
           nutrients = setNutrients(nutrientsData);
           console.log(nutrients);
@@ -94,19 +99,30 @@ function Restaurant() {
       }
     };
 
+    const json = await fetchNutrients();
     selectProduct();
   };
 
   useEffect(() => {
-    getNutrients();
+    const init = async () => {
+      console.log("I'm started!");
+      await textToSpeech("방문하신 매장의 이름을 말씀해주세요.");
+      userRestaurant = await speechToText(3000);
+      await textToSpeech("주문하실 메뉴의 이름을 말씀해주세요.");
+      userMenu = await speechToText(3000);
+      console.log(userRestaurant, userMenu);
+    };
+
+    const speakNutrients = async () => {
+      await init();
+      console.log("init end!");
+      getNutrients();
+    };
+
+    speakNutrients();
   }, []);
 
-  return <div onClick={divOnClick}></div>;
-}
-
-// function which returns user's voice input value
-async function getUserVoice() {
-  return "아니요";
+  return <div></div>;
 }
 
 export default Restaurant;
