@@ -1,3 +1,5 @@
+import { func } from "prop-types";
+
 async function speechToText(audioBase64) {
   const url =
     "https://speech.googleapis.com/v1/speech:recognize?key=AIzaSyCxnSFvcQd6a17xfB4nDwDafJH_juHSNA0";
@@ -5,16 +7,16 @@ async function speechToText(audioBase64) {
 
   const data = {
     config: {
-      encoding: "FLAC",
-      languageCode: "en-US",
-      audio_channel_count: 2,
+      encoding: "WEBM_OPUS",
+      languageCode: "ko-KR",
+      audio_channel_count: 1,
     },
     audio: {
       content: audioContent,
     },
   };
 
-  console.log(data);
+  // console.log(data);
 
   const response = await fetch(url, {
     method: "POST",
@@ -25,50 +27,66 @@ async function speechToText(audioBase64) {
   });
 
   const results = await response.json();
-  console.log(results);
+  console.log(results.results[0].alternatives[0].transcript);
+  return results.results[0].alternatives[0].transcript;
 }
 
 /**
  * @description Get the audio stream from the microphone
  */
-const stream = await navigator.mediaDevices.getUserMedia({
-  audio: true,
-  video: false,
-});
-
+async function getUserMedia() {
+  const stream = await navigator.mediaDevices.getUserMedia({
+    audio: true,
+    video: false,
+  });
+  return stream;
+}
 /**
  * @description Create a new MediaRecorder instance
- * 
-*/
-const recorder = new MediaRecorder(stream);
+ *
+ */
+async function getMediaRecorder() {
+  const stream = await getUserMedia();
+  const recorder = new MediaRecorder(stream);
+  return recorder;
+}
+/**
+ * @description Start recording
+ */
+async function startRecording() {
+  const recorder = await getMediaRecorder();
+  recorder.start();
+}
 
 /**
- * @description When the start button is clicked, start recording
+ * @description Stop recording
  */
-document.querySelector("#start").addEventListener("click", startRecording);
+async function stopRecording() {
+  const recorder = await getMediaRecorder();
+  recorder.stop();
+}
 
 /**
  * @description When the recorder stops, the data will be given as a base64 string
  */
-recorder.addEventListener("dataavailable", (e) => {
-  console.log(e.data);
-  const reader = new FileReader();
-
-  reader.readAsDataURL(e.data);
-
-  reader.onloadend = () => {
-    console.log(reader.result);
-  };
+let sttResult = "";
+getMediaRecorder().then((recorder) => {
+  recorder.addEventListener("dataavailable", (e) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(e.data);
+    reader.onloadend = () => {
+      let base64String = reader.result.replace(
+        "data:audio/webm;codecs=opus;base64,",
+        ""
+      );
+      // console.log(base64String);
+      sttResult = speechToText(base64String);
+    };
+  })
 });
 
-/**
- * 
- * @param {Number} time
- * @description Start recording for a given time in milliseconds 
- */
-function startRecording(time) {
-  recorder.start();
-  setTimeout(() => {
-    recorder.stop();
-  }, time);
+function updateSttResult() {
+  return sttResult;
 }
+
+export { startRecording, stopRecording, updateSttResult };
