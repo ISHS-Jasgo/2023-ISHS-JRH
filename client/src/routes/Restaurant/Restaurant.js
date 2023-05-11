@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { textToSpeech } from "./../../js/tts";
 import { useNavigate } from "react-router-dom";
+import { startRecording, stopRecording, updateSttResult } from "../../js/stt";
 
 function Restaurant() {
   const navigate = useNavigate();
@@ -95,16 +96,32 @@ function Restaurant() {
     selectProduct();
   };
 
+  // 이거 getUserVoice async라서 바꿔야됨!!
   useEffect(() => {
+    userRestaurant = getUserVoice(4000);
+    userMenu = getUserVoice(4000);
+    console.log(userRestaurant);
+    console.log(userMenu);
     getNutrients();
   }, []);
 
-  return <div></div>;
+  return (<div>
+
+  </div>);
 }
 
 // function which returns user's voice input value
-async function getUserVoice() {
-  return "네";
+/**
+ * 
+ * @param {Number} timeout 
+ * @returns user's voice input value
+ */
+async function getUserVoice(timeout) {
+  startRecording();
+  setTimeout(() => {
+    stopRecording();
+  }, timeout);
+  return updateSttResult();
 }
 
 export default Restaurant;
