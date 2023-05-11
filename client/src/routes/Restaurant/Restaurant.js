@@ -104,7 +104,7 @@ function Restaurant() {
 
 // function which returns user's voice input value
 async function getUserVoice() {
-  return "네";
+  return "아니요";
 }
 
 export default Restaurant;
