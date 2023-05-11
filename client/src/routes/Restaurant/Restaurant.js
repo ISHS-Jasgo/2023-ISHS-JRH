@@ -12,6 +12,8 @@ function Restaurant() {
   let userRestaurant = "메가커피";
   let userMenu = "아메리카노";
 
+  const divOnClick = () => {};
+
   const setNutrients = (candidate) => {
     if (candidate !== "") {
       //set nutrients
@@ -99,7 +101,7 @@ function Restaurant() {
     getNutrients();
   }, []);
 
-  return <div></div>;
+  return <div onClick={divOnClick}></div>;
 }
 
 // function which returns user's voice input value

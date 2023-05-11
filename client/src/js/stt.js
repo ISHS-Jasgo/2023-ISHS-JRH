@@ -38,8 +38,8 @@ const stream = await navigator.mediaDevices.getUserMedia({
 
 /**
  * @description Create a new MediaRecorder instance
- * 
-*/
+ *
+ */
 const recorder = new MediaRecorder(stream);
 
 /**
@@ -62,9 +62,9 @@ recorder.addEventListener("dataavailable", (e) => {
 });
 
 /**
- * 
+ *
  * @param {Number} time
- * @description Start recording for a given time in milliseconds 
+ * @description Start recording for a given time in milliseconds
  */
 function startRecording(time) {
   recorder.start();
