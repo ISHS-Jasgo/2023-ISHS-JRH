@@ -1,8 +1,10 @@
 {
   "name": "client",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "dependencies": {
+    "@google-cloud/speech": "^5.4.1",
     "@google-cloud/storage": "^6.10.0",
     "@google-cloud/text-to-speech": "^4.2.2",
     "@testing-library/jest-dom": "^5.16.5",
