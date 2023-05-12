@@ -13,8 +13,6 @@ function Restaurant() {
   let userRestaurant = "";
   let userMenu = "";
 
-  const divOnClick = () => {};
-
   const setNutrients = (candidate) => {
     if (candidate !== "") {
       //set nutrients
@@ -67,7 +65,8 @@ function Restaurant() {
       const json = await response.json();
 
       if (json.I2790.total_count === "0") {
-        throw new Error("일치하는 제품이 없습니다.");
+        console.log("일치하는 제품이 없습니다.");
+        textToSpeech("일치하는 제품이 없습니다.", false);
       }
 
       //console.log(json);
@@ -94,8 +93,8 @@ function Restaurant() {
       if (isCorrectRes) {
         navigateTo("/restaurant/result", { resNutrients: nutrients });
       } else {
-        await textToSpeech("찾으시는 제품이 없습니다...ㅠㅠ");
         console.log("찾으시는 제품이 없습니다...ㅠㅠ");
+        await textToSpeech("찾으시는 제품이 없습니다...ㅠㅠ");
       }
     };
 
