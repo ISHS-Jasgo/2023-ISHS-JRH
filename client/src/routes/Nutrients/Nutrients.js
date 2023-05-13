@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { textToSpeech } from "./../../js/tts";
+import { setNutrients } from "../../js/nutrientsHandle";
 import Video from "../../components/Global/Video";
 import Canvas from "../../components/Global/Canvas";
 
@@ -99,45 +100,7 @@ function Nutrients() {
     }
 
     console.log(json);
-
-    //set nutrients
-    const calories = json.I2790.row[0].NUTR_CONT1;
-    const carbohydrate = json.I2790.row[0].NUTR_CONT2;
-    const protein = json.I2790.row[0].NUTR_CONT3;
-    const fat = json.I2790.row[0].NUTR_CONT4;
-    const sugar = json.I2790.row[0].NUTR_CONT5;
-    const sodium = json.I2790.row[0].NUTR_CONT6;
-    const cholesterol = json.I2790.row[0].NUTR_CONT7;
-    const saturatedFat = json.I2790.row[0].NUTR_CONT8;
-    const transFat = json.I2790.row[0].NUTR_CONT9;
-
-    //output Object
-    const result = {};
-    const nutrients = {
-      name: productName,
-      calories: calories,
-      nutrients: {
-        carbohydrate: carbohydrate,
-        protein: protein,
-        fat: fat,
-        sugar: sugar,
-        sodium: sodium,
-        cholesterol: cholesterol,
-        saturatedFat: saturatedFat,
-        transFat: transFat,
-      },
-    };
-
-    //set zero default value
-    for (let key in nutrients.nutrients) {
-      if (nutrients.nutrients[key] === "") {
-        nutrients.nutrients[key] = "0";
-      }
-    }
-
-    result["nuts"] = nutrients;
-    //console.log(result);
-    return result;
+    return setNutrients(json.I2790.row[0]);
   };
 
   useEffect(() => {
@@ -148,7 +111,7 @@ function Nutrients() {
         drawToCanvas();
         sendImage();
       }
-    }, 250);
+    }, 350);
     return () => clearInterval(id);
   }, []);
 
@@ -192,6 +155,7 @@ function Nutrients() {
           console.log(err);
           console.log("product not found. begin to search.");
           textToSpeech("일치하는 상품이 없습니다. 재탐색합니다.", false);
+          setProductNum("");
           search.current = true;
         });
     } else {
