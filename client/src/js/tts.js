@@ -1,7 +1,8 @@
 const audio = new Audio();
-let isAudioEnded = false;
+let nowImportant = true;
 
-async function textToSpeech(text, isImportant = false) {
+//isImportant = true: 말을 끊지 않는다. false: 말을 끊는다.
+async function textToSpeech(text, isImportant = true) {
   const url =
     "https://texttospeech.googleapis.com/v1/text:synthesize?key=AIzaSyCxnSFvcQd6a17xfB4nDwDafJH_juHSNA0";
   const audioData = {
@@ -24,16 +25,38 @@ async function textToSpeech(text, isImportant = false) {
     body: JSON.stringify(audioData),
     method: "POST",
   };
-
   // 사운드 생성
   try {
-    const fetchData = await fetch(url, otherparam);
-    const res = await fetchData.json();
-
-    audio.src = `data:audio/mp3;base64,${res.audioContent}`;
-    console.log("tts start!");
-    //audio.load();
-    audio.play();
+    const currSource4 = audio.src.substring(0, 4);
+    if (nowImportant && currSource4 !== "http" && currSource4 !== "") {
+      //현재 재생되는 오디오가 중요할 때
+      audio.addEventListener(
+        "ended",
+        () => {
+          fetch(url, otherparam)
+            .then((fetchData) => fetchData.json())
+            .then((res) => {
+              audio.src = `data:audio/mp3;base64,${res.audioContent}`;
+              console.log("tts start!");
+              audio.play();
+            });
+        },
+        { once: true }
+      );
+    } else {
+      //현재 재생되는 오디오가 중요하지 않을때 또는 오디오가 없을때
+      fetch(url, otherparam)
+        .then((fetchData) => fetchData.json())
+        .then((res) => {
+          audio.pause();
+          audio.src = `data:audio/mp3;base64,${res.audioContent}`;
+          console.log("tts start!");
+          audio.play();
+          //console.log("play!");
+          //console.log("curr", audio.src);
+        });
+    }
+    nowImportant = isImportant;
   } catch (err) {
     console.log(err);
   }
@@ -43,11 +66,20 @@ async function textToSpeech(text, isImportant = false) {
       "ended",
       () => {
         console.log("tts end!");
+        audio.src = "";
+        //console.log("now is", audio.src);
         resolve();
       },
       { once: true }
     );
   });
+}
+
+function stopTTS() {
+  audio.pause();
+  console.log("stop..");
+  audio.src = "";
+  audio.load();
 }
 
 function getDevice() {
@@ -72,4 +104,4 @@ function getSpeed() {
   else return 2;
 }
 
-export { getSpeed, getDevice, textToSpeech };
+export { getSpeed, getDevice, textToSpeech, stopTTS };

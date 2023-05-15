@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
 import Home from "./routes/Home";
 import Nutrients from "./routes/Nutrients/Nutrients";
 import NuResult from "./routes/Nutrients/NuResult";
@@ -10,6 +11,7 @@ import Help from "./routes/Help";
 
 function App() {
   //<Route path={`${process.env.PUBLIC_URL}/`} element={<Home />} />
+
   return (
     <Router>
       <Routes>

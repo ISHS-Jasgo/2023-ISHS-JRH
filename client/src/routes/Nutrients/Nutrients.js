@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { textToSpeech } from "./../../js/tts";
+import { stopTTS, textToSpeech } from "./../../js/tts";
 import { setNutrients } from "../../js/nutrientsHandle";
 import Video from "../../components/Global/Video";
 import Canvas from "../../components/Global/Canvas";
@@ -112,13 +112,16 @@ function Nutrients() {
         sendImage();
       }
     }, 350);
-    return () => clearInterval(id);
+    return () => {
+      clearInterval(id);
+      stopTTS();
+    };
   }, []);
 
   useEffect(() => {
     if (isNumDetected) {
       console.log("number detected!");
-      textToSpeech("품목보고번호가 감지되었습니다.", false);
+      textToSpeech("품목보고번호가 감지되었습니다.", true);
     }
   }, [isNumDetected]);
 
@@ -128,7 +131,7 @@ function Nutrients() {
       let { res, repeatCnt } = getMode(resultArr);
       if (res === "not found") {
         console.log("failed.. begin to search");
-        textToSpeech("탐색중.", true);
+        textToSpeech("탐색중.", false);
         search.current = true;
       } else {
         console.log("success!");
@@ -154,7 +157,7 @@ function Nutrients() {
         .catch((err) => {
           console.log(err);
           console.log("product not found. begin to search.");
-          textToSpeech("일치하는 상품이 없습니다. 재탐색합니다.", false);
+          textToSpeech("일치하는 상품이 없습니다. 재탐색합니다.", true);
           setProductNum("");
           search.current = true;
         });

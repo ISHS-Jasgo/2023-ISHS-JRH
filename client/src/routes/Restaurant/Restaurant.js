@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { textToSpeech } from "../../js/tts";
+import { textToSpeech, stopTTS } from "../../js/tts";
 import { speechToText } from "../../js/stt";
 import { setNutrients } from "../../js/nutrientsHandle";
 import { restaurantsList, positiveResponse } from "../../js/sttHandle";
@@ -86,6 +86,7 @@ function Restaurant() {
     };
 
     init();
+    return () => stopTTS();
   }, []);
 
   return <div>{displayText}</div>;

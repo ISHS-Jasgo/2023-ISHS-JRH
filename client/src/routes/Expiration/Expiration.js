@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { textToSpeech } from "../../js/tts";
+import { textToSpeech, stopTTS } from "../../js/tts";
 import Video from "../../components/Global/Video";
 import Canvas from "../../components/Global/Canvas";
 
@@ -73,14 +73,17 @@ function Expiration() {
     };
 
     init();
-    return () => clearInterval(intervalId);
+    return () => {
+      clearInterval(intervalId);
+      stopTTS();
+    };
   }, []);
 
   useEffect(() => {
     const dateDetected = async () => {
       if (isDateDetected) {
         console.log("date detected!");
-        await textToSpeech("유통기한이 감지되었습니다.", false);
+        await textToSpeech("유통기한이 감지되었습니다.", true);
       }
     };
 
@@ -101,7 +104,7 @@ function Expiration() {
           console.log("failed.. begin to search");
           search.current = true;
           init();
-          await textToSpeech("탐색중.", true);
+          await textToSpeech("탐색중.", false);
         } else {
           console.log("success!");
           console.log(`found result is ${res}`);
