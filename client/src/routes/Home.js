@@ -14,7 +14,7 @@ function Home() {
 
   return (
     <div>
-      <h1>앱 이름</h1>
+      <h1>NutriVision</h1>
       <Button text="영양성분" onClick={() => navigateTo("/nutrients")} />
       <Button text="유통기한" onClick={() => navigateTo("/expiration")} />
       <Button text="음식점" onClick={() => navigateTo("/restaurant")} />

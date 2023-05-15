@@ -61,42 +61,57 @@ function Expiration() {
   };
 
   useEffect(() => {
-    window.speechSynthesis.getVoices();
-    //getSpeech("유통기한 탐색을 시작합니다.");
-    textToSpeech("유통기한 탐색을 시작합니다.", true);
-    const id = setInterval(() => {
-      drawToCanvas();
-      sendImage();
-    }, 250);
-    return () => clearInterval(id);
+    let intervalId = 0;
+    const init = async () => {
+      await textToSpeech("유통기한 탐색을 시작합니다.", true);
+      const id = setInterval(() => {
+        if (intervalId === 0) intervalId = id;
+        //console.log("hahaha");
+        drawToCanvas();
+        sendImage();
+      }, 250);
+    };
+
+    init();
+    return () => clearInterval(intervalId);
   }, []);
 
   useEffect(() => {
-    if (isDateDetected) {
-      console.log("date detected!");
-      textToSpeech("유통기한이 감지되었습니다.", false);
-    }
+    const dateDetected = async () => {
+      if (isDateDetected) {
+        console.log("date detected!");
+        await textToSpeech("유통기한이 감지되었습니다.", false);
+      }
+    };
+
+    dateDetected();
   }, [isDateDetected]);
 
   useEffect(() => {
-    if (resultArr.length >= 10) {
-      search.current = false;
-      let { res, repeatCnt } = getMode(resultArr);
-      if (res === "not found") {
-        console.log("failed.. begin to search");
-        textToSpeech("탐색중.", true);
-        //getSpeech("유통기한을 찾지 못했습니다. 재검색합니다.");
-        search.current = true;
-      } else {
-        console.log("success!");
-        console.log(`found result is ${res}`);
-        setExpiration(res);
-      }
+    const cycleEnded = async () => {
+      const init = () => {
+        setIsDateDetected(false);
+        setResultArr([]);
+      };
 
-      //init
-      setIsDateDetected(false);
-      setResultArr([]);
-    }
+      if (resultArr.length >= 10) {
+        search.current = false;
+        let { res, repeatCnt } = getMode(resultArr);
+        if (res === "not found") {
+          console.log("failed.. begin to search");
+          search.current = true;
+          init();
+          await textToSpeech("탐색중.", true);
+        } else {
+          console.log("success!");
+          console.log(`found result is ${res}`);
+          init();
+          setExpiration(res);
+        }
+      }
+    };
+
+    cycleEnded();
   }, [resultArr]);
 
   useEffect(() => {

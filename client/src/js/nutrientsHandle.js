@@ -47,4 +47,6 @@ function setNutrients(candidate) {
   }
 }
 
+function readNutrients(result) {}
+
 export { setNutrients };

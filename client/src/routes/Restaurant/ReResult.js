@@ -8,7 +8,11 @@ function ReResult() {
   const nutrients = result.nutrients;
 
   useEffect(() => {
-    textToSpeech("찾았습니다.");
+    const init = async () => {
+      await textToSpeech("메뉴를 찾았습니다.");
+    };
+
+    init();
   }, []);
 
   return (

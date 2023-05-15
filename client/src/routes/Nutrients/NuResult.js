@@ -8,7 +8,7 @@ function NuResult() {
   const nutrients = result.nutrients;
 
   useEffect(() => {
-    textToSpeech("찾았습니다.");
+    textToSpeech("제품을 찾았습니다.");
   }, []);
 
   return (

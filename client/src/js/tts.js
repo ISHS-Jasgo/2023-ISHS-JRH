@@ -1,17 +1,7 @@
-function getSpeech(text) {
-  const lang = "ko-KR";
-  const utterThis = new SpeechSynthesisUtterance(text);
-
-  utterThis.lang = lang;
-  utterThis.rate = getSpeed();
-  window.speechSynthesis.speak(utterThis);
-}
-
 const audio = new Audio();
-let canAudioPause = false;
 let isAudioEnded = false;
 
-async function textToSpeech(text, notImportant = false) {
+async function textToSpeech(text, isImportant = false) {
   const url =
     "https://texttospeech.googleapis.com/v1/text:synthesize?key=AIzaSyCxnSFvcQd6a17xfB4nDwDafJH_juHSNA0";
   const audioData = {
@@ -35,38 +25,29 @@ async function textToSpeech(text, notImportant = false) {
     method: "POST",
   };
 
-  audio.addEventListener("ended", () => {
-    console.log("audio ended!");
-    isAudioEnded = true;
-  });
-
   // 사운드 생성
   try {
     const fetchData = await fetch(url, otherparam);
     const res = await fetchData.json();
-    console.log(canAudioPause);
 
-    if (canAudioPause) audio.pause();
     audio.src = `data:audio/mp3;base64,${res.audioContent}`;
-    canAudioPause = notImportant;
+    console.log("tts start!");
+    //audio.load();
     audio.play();
   } catch (err) {
     console.log(err);
   }
 
   return new Promise((resolve) => {
-    let loop = setInterval(() => {
-      if (isAudioEnded) {
-        clearInterval(loop);
-        isAudioEnded = false;
+    audio.addEventListener(
+      "ended",
+      () => {
+        console.log("tts end!");
         resolve();
-      }
-    }, 100);
+      },
+      { once: true }
+    );
   });
-}
-
-function stopSpeech() {
-  window.speechSynthesis.cancel();
 }
 
 function getDevice() {
@@ -91,4 +72,4 @@ function getSpeed() {
   else return 2;
 }
 
-export { getSpeech, stopSpeech, getDevice, textToSpeech };
+export { getSpeed, getDevice, textToSpeech };
