@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { textToSpeech } from "./../../js/tts";
 import { useEffect } from "react";
+import { readJson } from "../../js/read";
 
 function ReResult() {
   const location = useLocation();
@@ -10,6 +11,8 @@ function ReResult() {
   useEffect(() => {
     const init = async () => {
       await textToSpeech("메뉴를 찾았습니다.");
+      const read = new readJson(result);
+      await read.readJsonObject();
     };
 
     init();

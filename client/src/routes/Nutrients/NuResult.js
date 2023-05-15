@@ -8,7 +8,13 @@ function NuResult() {
   const nutrients = result.nutrients;
 
   useEffect(() => {
-    textToSpeech("제품을 찾았습니다.");
+    const init = async () => {
+      await textToSpeech("제품을 찾았습니다.");
+      const read = new readJson(result);
+      await read.readJsonObject();
+    };
+
+    init();
   }, []);
 
   return (
