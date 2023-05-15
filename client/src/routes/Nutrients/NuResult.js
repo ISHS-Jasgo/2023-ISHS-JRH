@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { textToSpeech } from "./../../js/tts";
 import { useEffect } from "react";
+import { readJson } from "../../js/read";
 
 function NuResult() {
   const location = useLocation();
