@@ -68,6 +68,7 @@ async function speechToText(interval = 3000) {
             ""
           );
           sttResult = await b64AudioToString(base64String);
+          console.log(sttResult);
           resolve(sttResult);
         };
       },
