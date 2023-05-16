@@ -8,6 +8,7 @@ import ExResult from "./routes/Expiration/ExResult";
 import Restaurant from "./routes/Restaurant/Restaurant";
 import ReResult from "./routes/Restaurant/ReResult";
 import Help from "./routes/Help/Help";
+import First from "./routes/First";
 
 function App() {
   //<Route path={`${process.env.PUBLIC_URL}/`} element={<Home />} />
@@ -21,8 +22,9 @@ function App() {
         <Route path="/expiration" element={<Expiration />} />
         <Route path="/restaurant" element={<Restaurant />} />
         <Route path="/restaurant/result" element={<ReResult />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/help" element={<Help />} />
-        <Route path={`${process.env.PUBLIC_URL}/`} element={<Home />} />
+        <Route path={`${process.env.PUBLIC_URL}/`} element={<First />} />
       </Routes>
     </Router>
   );

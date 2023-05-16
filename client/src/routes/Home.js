@@ -1,7 +1,10 @@
-import { useNavigate } from "react-router-dom";
-import Button from "../components/Global/Button";
-//import { getSpeech } from "../js/tts";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { textToSpeech } from "../js/tts";
+import { speechToText } from "../js/stt";
+import { positiveResponse } from "../js/sttHandle";
+import Button from "../components/Global/Button";
+import ImgButton from "../components/Global/ImgButton";
 import Logo from "./logo.jpg";
 import styles from "./Home.module.css";
 
@@ -12,14 +15,70 @@ function Home() {
     console.log("Redirecting...");
   };
 
-  //useEffect(() => getSpeech("Hello!"), []);
+  useEffect(() => {
+    const selectButton = async () => {
+      await textToSpeech("버튼 선택좀 ㅋ");
+    };
+
+    const init = async () => {
+      await textToSpeech(
+        "영양성분, 유통기한, 도움말 중 원하시는 기능을 말씀해주세요."
+      );
+      const getButton = async () => {
+        const res1 = await speechToText(3000);
+        switch (res1) {
+          case "영양 성분":
+          case "영양성분":
+            await textToSpeech(
+              "가공식품의 영양성분을 알고 싶으시다면 '가공식품', 음식점 메뉴의 영양성분을 알고 싶으시다면 '음식점'을 말씀해주세요."
+            );
+            const getNutrientsWhere = async () => {
+              const res2 = await speechToText(3000);
+              if (res2 === "가공식품" || res2 === "가공 식품") {
+                await textToSpeech(
+                  "가공식품 영양정보 찾기 화면으로 이동합니다."
+                );
+                navigateTo("/nutrients");
+              } else if (res2 === "음식점") {
+                await textToSpeech(
+                  "음식점 메뉴 영양정보 찾기 화면으로 이동합니다."
+                );
+                navigateTo("/restaurant");
+              } else {
+                await textToSpeech("다시 한 번 말씀해 주시겠어요?");
+                getNutrientsWhere();
+              }
+            };
+            getNutrientsWhere();
+            break;
+
+          case "유통기한":
+            await textToSpeech("유통기한 찾기 화면으로 이동합니다.");
+            navigateTo("/expiration");
+            break;
+
+          case "도움말":
+            await textToSpeech("도움말 화면으로 이동합니다.");
+            navigateTo("/help");
+            break;
+
+          default:
+            await textToSpeech("다시 한 번 말씀해 주시겠어요?");
+            getButton();
+            break;
+        }
+      };
+      getButton();
+    };
+    init();
+  }, []);
   let [modal, setModal] = useState(false);
   return (
     <div>
       <div>
-        <imgButton
-          className={styles.settingimg}
-          onClick={() => navigateTo("/Settings")}
+        <ImgButton
+          classname={styles.settingimg}
+          onclick={() => navigateTo("/Settings")}
         />
       </div>
       <div className={styles.aboutlogo}>

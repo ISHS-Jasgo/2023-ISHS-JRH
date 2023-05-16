@@ -52,6 +52,7 @@ async function textToSpeech(text, isImportant = true) {
           audio.src = `data:audio/mp3;base64,${res.audioContent}`;
           console.log("tts start!");
           audio.play();
+          //audio.muted = false;
           //console.log("play!");
           //console.log("curr", audio.src);
         });

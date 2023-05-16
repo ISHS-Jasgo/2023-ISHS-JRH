@@ -1,5 +1,5 @@
-function imgButton({ onClick, classname }) {
+function ImgButton({ onClick, classname }) {
   return <button onClick={onClick} className={classname}></button>;
 }
 
-export default imgButton;
+export default ImgButton;

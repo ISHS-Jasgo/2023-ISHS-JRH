@@ -1,18 +1,37 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { textToSpeech } from "./../../js/tts";
+import { speechToText } from "../../js/stt";
+import { positiveResponse } from "../../js/sttHandle";
 import { useEffect } from "react";
-import { readJson } from "../../js/read";
+import { readNutreintsObject } from "../../js/readNutrients";
 
 function ReResult() {
+  const navigate = useNavigate();
+  const navigateTo = (path, params) => {
+    navigate(path, { state: params });
+    console.log("Redirecting...");
+  };
+
   const location = useLocation();
   const result = location.state.resNutrients.nuts;
   const nutrients = result.nutrients;
 
   useEffect(() => {
     const init = async () => {
-      await textToSpeech("메뉴를 찾았습니다.");
-      const read = new readJson(result);
-      await read.readJsonObject();
+      await textToSpeech("제품을 찾았습니다.");
+      readNutrients();
+    };
+
+    const readNutrients = async () => {
+      await readNutreintsObject(result);
+      await textToSpeech("다시 들려드릴까요?", true);
+      const userRes = await speechToText(3000);
+      if (positiveResponse.has(userRes)) {
+        readNutrients();
+      } else {
+        await textToSpeech("첫 화면으로 이동합니다.", true);
+        navigateTo("/2023-ISHS-JRH", { isFirst: false });
+      }
     };
 
     init();
