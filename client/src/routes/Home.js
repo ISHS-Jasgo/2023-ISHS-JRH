@@ -1,14 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Global/Button";
 //import { getSpeech } from "../js/tts";
-<<<<<<< HEAD
-import { useEffect } from "react";
-import "./Home.css";
-=======
 import { useEffect, useState } from "react";
 import Logo from "./logo.jpg";
 import styles from "./Home.module.css";
->>>>>>> origin/qhrud0209
 
 function Home() {
   const navigate = useNavigate();
