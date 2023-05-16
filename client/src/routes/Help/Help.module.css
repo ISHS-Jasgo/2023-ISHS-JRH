@@ -1,0 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 170px;
+}
+.prettytext {
+  font-family: "Jua", sans-serif;
+  font-size: 600px;
+  font-weight: 400;
+  font-size: large;
+}

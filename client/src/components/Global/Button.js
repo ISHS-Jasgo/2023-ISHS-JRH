@@ -1,7 +1,11 @@
 import PropTypes from "prop-types";
 
-function Button({ text, onClick }) {
-  return <button onClick={onClick}>{text}</button>;
+function Button({ text, onClick, classname }) {
+  return (
+    <button onClick={onClick} className={classname}>
+      {text}
+    </button>
+  );
 }
 
 Button.propTypes = {
