@@ -7,7 +7,7 @@ import Expiration from "./routes/Expiration/Expiration";
 import ExResult from "./routes/Expiration/ExResult";
 import Restaurant from "./routes/Restaurant/Restaurant";
 import ReResult from "./routes/Restaurant/ReResult";
-import Help from "./routes/Help";
+import Help from "./routes/Help/Help";
 
 function App() {
   //<Route path={`${process.env.PUBLIC_URL}/`} element={<Home />} />
