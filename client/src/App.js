@@ -8,11 +8,13 @@ import ExResult from "./routes/Expiration/ExResult";
 import Restaurant from "./routes/Restaurant/Restaurant";
 import ReResult from "./routes/Restaurant/ReResult";
 import Help from "./routes/Help/Help";
+import { CookiesProvider } from "react-cookie";
 
 function App() {
   //<Route path={`${process.env.PUBLIC_URL}/`} element={<Home />} />
 
   return (
+    <CookiesProvider>
     <Router>
       <Routes>
         <Route path="/nutrients/result" element={<NuResult />} />
@@ -25,6 +27,7 @@ function App() {
         <Route path={`${process.env.PUBLIC_URL}/`} element={<Home />} />
       </Routes>
     </Router>
+    </CookiesProvider>
   );
 }
 

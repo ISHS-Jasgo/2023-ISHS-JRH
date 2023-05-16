@@ -2,7 +2,7 @@ const audio = new Audio();
 let nowImportant = true;
 
 //isImportant = true: 말을 끊지 않는다. false: 말을 끊는다.
-async function textToSpeech(text, isImportant = true) {
+async function textToSpeech(text, isImportant = true, speakRate = 1) {
   const url =
     "https://texttospeech.googleapis.com/v1/text:synthesize?key=AIzaSyCxnSFvcQd6a17xfB4nDwDafJH_juHSNA0";
   const audioData = {
@@ -16,6 +16,7 @@ async function textToSpeech(text, isImportant = true) {
     },
     audioConfig: {
       audioEncoding: "MP3",
+      speakingRate: speakRate,
     },
   };
   const otherparam = {

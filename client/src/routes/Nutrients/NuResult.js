@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import { textToSpeech } from "./../../js/tts";
 import { useEffect } from "react";
 import { readJson } from "../../js/read";
+import { getRecommendedNutrient } from "../../js/recommended";
 
 function NuResult() {
   const location = useLocation();
@@ -13,6 +14,14 @@ function NuResult() {
       await textToSpeech("제품을 찾았습니다.");
       const read = new readJson(result);
       await read.readJsonObject();
+      let calorie = Math.floor((result.calories/getRecommendedNutrient("calorie")));
+      let carbohydrate = Math.floor(result.nutrients.carbohydrate/getRecommendedNutrient("carbohydrate"));
+      let protein = Math.floor(result.nutrients.protein/getRecommendedNutrient("protein"));
+      let fat = Math.floor(result.nutrients.fat/getRecommendedNutrient("fat"));
+      await textToSpeech(calorie*100+ "퍼센트의 칼로리를 섭취하였습니다.");
+      await textToSpeech(carbohydrate*100 + "퍼센트의 탄수화물을 섭취하였습니다.");
+      await textToSpeech(protein*100 + "퍼센트의 단백질을 섭취하였습니다.");
+      await textToSpeech(fat*100 + "퍼센트의 지방을 섭취하였습니다.");
     };
 
     init();
