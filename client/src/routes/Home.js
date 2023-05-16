@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Global/Button";
+import ImgButton from "../components/Global/ImgButton";
 //import { getSpeech } from "../js/tts";
 import { useEffect, useState } from "react";
 import Logo from "./logo.jpg";
+import ISHSlogo from "./ISHSlogo.png";
 import styles from "./Home.module.css";
 
 function Home() {
@@ -13,17 +15,18 @@ function Home() {
   };
 
   //useEffect(() => getSpeech("Hello!"), []);
-  let [modal, setModal] = useState(false);
   return (
     <div>
       <div>
-        <imgButton
-          className={styles.settingimg}
-          onClick={() => navigateTo("/Settings")}
+        <ImgButton
+          classname={styles.settingimg}
+          onClick={() => navigateTo("/settings")}
+          imgSource="setting"
         />
       </div>
+
       <div className={styles.aboutlogo}>
-        <img src={Logo} width={300}></img>
+        <img src={Logo}></img>
       </div>
       <div>
         <div className={styles.divbtnone}>
