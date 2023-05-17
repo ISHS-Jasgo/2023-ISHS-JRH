@@ -2,7 +2,7 @@ const audio = new Audio();
 let nowImportant = true;
 
 //isImportant = true: 말을 끊지 않는다. false: 말을 끊는다.
-async function textToSpeech(text, isImportant = true) {
+async function textToSpeech(text, isImportant = true, speakRate = 1) {
   const url =
     "https://texttospeech.googleapis.com/v1/text:synthesize?key=AIzaSyCxnSFvcQd6a17xfB4nDwDafJH_juHSNA0";
   const audioData = {
@@ -16,6 +16,7 @@ async function textToSpeech(text, isImportant = true) {
     },
     audioConfig: {
       audioEncoding: "MP3",
+      speakingRate: speakRate,
     },
   };
   const otherparam = {
@@ -52,9 +53,6 @@ async function textToSpeech(text, isImportant = true) {
           audio.src = `data:audio/mp3;base64,${res.audioContent}`;
           console.log("tts start!");
           audio.play();
-          //audio.muted = false;
-          //console.log("play!");
-          //console.log("curr", audio.src);
         });
     }
     nowImportant = isImportant;
@@ -68,7 +66,6 @@ async function textToSpeech(text, isImportant = true) {
       () => {
         console.log("tts end!");
         audio.src = "";
-        //console.log("now is", audio.src);
         resolve();
       },
       { once: true }

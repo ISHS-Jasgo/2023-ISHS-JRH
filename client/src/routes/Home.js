@@ -1,8 +1,7 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { textToSpeech } from "../js/tts";
 import { speechToText } from "../js/stt";
-import { positiveResponse } from "../js/sttHandle";
 import Button from "../components/Global/Button";
 import ImgButton from "../components/Global/ImgButton";
 import Logo from "./logo.jpg";
@@ -16,10 +15,6 @@ function Home() {
   };
 
   useEffect(() => {
-    const selectButton = async () => {
-      await textToSpeech("버튼 선택좀 ㅋ");
-    };
-
     const init = async () => {
       await textToSpeech(
         "영양성분, 유통기한, 도움말 중 원하시는 기능을 말씀해주세요."
@@ -72,7 +67,7 @@ function Home() {
     };
     init();
   }, []);
-  let [modal, setModal] = useState(false);
+
   return (
     <div>
       <div>

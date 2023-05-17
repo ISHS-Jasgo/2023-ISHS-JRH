@@ -26,15 +26,13 @@ function ExResult() {
 
     const speakDate = async () => {
       await textToSpeech(ttsText);
-      console.log("first");
       await textToSpeech("다시 들려드릴까요?", true);
-      console.log("second");
       const userRes = await speechToText(3000);
       if (positiveResponse.has(userRes)) {
         speakDate();
       } else {
         await textToSpeech("첫 화면으로 이동합니다.", true);
-        navigateTo("/2023-ISHS-JRH", { isFirst: false });
+        navigateTo("/home");
       }
     };
 

@@ -30,7 +30,7 @@ function NuResult() {
         readNutrients();
       } else {
         await textToSpeech("첫 화면으로 이동합니다.", true);
-        navigateTo("/2023-ISHS-JRH", { isFirst: false });
+        navigateTo("/home");
       }
     };
 
