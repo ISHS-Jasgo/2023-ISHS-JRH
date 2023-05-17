@@ -26,7 +26,7 @@ function Home() {
       </div>
 
       <div className={styles.aboutlogo}>
-        <img src={Logo}></img>
+        <img className={styles.sizeimage} src={Logo}></img>
       </div>
       <div>
         <div className={styles.divbtnone}>
