@@ -4,8 +4,6 @@ import ImgButton from "../components/Global/ImgButton";
 import { useEffect, useState } from "react";
 import { textToSpeech } from "../js/tts";
 import { speechToText } from "../js/stt";
-import Button from "../components/Global/Button";
-import ImgButton from "../components/Global/ImgButton";
 import Logo from "./logo.jpg";
 import ISHSlogo from "./ISHSlogo.png";
 import styles from "./Home.module.css";

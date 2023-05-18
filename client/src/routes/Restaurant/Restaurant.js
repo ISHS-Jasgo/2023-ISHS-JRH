@@ -4,6 +4,7 @@ import { textToSpeech, stopTTS } from "../../js/tts";
 import { speechToText } from "../../js/stt";
 import { setNutrients } from "../../js/nutrientsHandle";
 import { restaurantsList, positiveResponse } from "../../js/sttHandle";
+import styles from "./Restaurant.module.css";
 
 function Restaurant() {
   const navigate = useNavigate();
@@ -103,7 +104,7 @@ function Restaurant() {
     };
   }, []);
 
-  return <div>{displayText}</div>;
+  return <div className={styles.decodiv}>{displayText}</div>;
 }
 
 export default Restaurant;

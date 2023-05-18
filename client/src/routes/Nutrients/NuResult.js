@@ -4,6 +4,7 @@ import { speechToText } from "../../js/stt";
 import { useEffect } from "react";
 import { positiveResponse } from "../../js/sttHandle";
 import { readNutreintsObject } from "../../js/readNutrients";
+import styles from "./NuResult.module.css";
 
 function NuResult() {
   const navigate = useNavigate();
