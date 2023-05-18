@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
+
+.decodiv {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.decoh {
+  font-family: "Jua", sans-serif;
+  font-weight: 300;
+  font-size: 50px;
+  margin-top: 300px;
+  color: rgb(102, 209, 252);
+}

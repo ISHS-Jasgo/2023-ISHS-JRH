@@ -2,6 +2,17 @@ import { textToSpeech } from "./tts";
 import { speechToText } from "./stt";
 import { positiveResponse } from "./sttHandle";
 import recommendedNutrients from "./recommended";
+import { useState } from "react";
+
+let curr = false;
+let claR;
+let carboR;
+let proR;
+let fatR;
+let suR;
+let soR;
+let choR;
+let saturR;
 
 async function readNutreintsObject(element) {
   const name = element.name;
@@ -28,6 +39,7 @@ async function readNutreintsObject(element) {
   await textToSpeech("1일 영양성분 기준치에 대한 비율을 알려드릴까요?");
   const res1 = await speechToText(3000);
   if (positiveResponse.has(res1)) {
+    curr = true;
     const calorieRate = Math.floor(
       (calories / recommendedNutrients.calorie) * 100
     );
@@ -47,6 +59,14 @@ async function readNutreintsObject(element) {
       (saturatedFat / recommendedNutrients.saturatedFat) * 100
     );
 
+    claR = calorieRate;
+    carboR = carbohydrateRate;
+    proR = proteinRate;
+    fatR = fatRate;
+    suR = sugarRate;
+    soR = sodiumRate;
+    choR = cholesterolRate;
+    saturR = saturatedFatRate;
     await textToSpeech(
       "2000칼로리를 기준으로 한 1일 영양성분 기준치에 대하여,"
     );
@@ -63,4 +83,15 @@ async function readNutreintsObject(element) {
   }
 }
 
-export { readNutreintsObject };
+export {
+  readNutreintsObject,
+  claR,
+  carboR,
+  proR,
+  fatR,
+  suR,
+  soR,
+  choR,
+  saturR,
+  curr,
+};
