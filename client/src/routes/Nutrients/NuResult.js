@@ -19,18 +19,18 @@ function NuResult() {
   useEffect(() => {
     const init = async () => {
       stopTTS();
-      await textToSpeech("제품을 찾았습니다.");
+      await textToSpeech("제품을 찾았습니다.", 1);
       readNutrients();
     };
 
     const readNutrients = async () => {
       await readNutreintsObject(result);
-      await textToSpeech("다시 들려드릴까요?", true);
+      await textToSpeech("다시 들려드릴까요?", 1);
       const userRes = await speechToText(3000);
       if (positiveResponse.has(userRes)) {
         readNutrients();
       } else {
-        await textToSpeech("첫 화면으로 이동합니다.", true);
+        await textToSpeech("첫 화면으로 이동합니다.", 1);
         navigateTo("/home");
       }
     };
