@@ -3,7 +3,7 @@ const recommendedNutrients = {
   carbohydrate: 324,
   protein: 55,
   fat: 54,
-  suagr: 100,
+  sugar: 100,
   sodium: 2000,
   cholesterol: 300,
   saturatedFat: 15,

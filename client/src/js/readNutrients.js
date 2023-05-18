@@ -29,23 +29,23 @@ async function readNutreintsObject(element) {
   const res1 = await speechToText(3000);
   if (positiveResponse.has(res1)) {
     const calorieRate = Math.floor(
-      (calories / recommendedNutrients.calorie) * 100
-    );
+      (calories / recommendedNutrients.calorie) * 1000
+    )/10;
     const carbohydrateRate = Math.floor(
-      (carbohydrate / recommendedNutrients.carbohydrate) * 100
-    );
+      (carbohydrate / recommendedNutrients.carbohydrate) * 1000
+    )/10;
     const proteinRate = Math.floor(
-      (protein / recommendedNutrients.protein) * 100
-    );
-    const fatRate = Math.floor((fat / recommendedNutrients.fat) * 100);
-    const sugarRate = Math.floor((sugar / recommendedNutrients.sugar) * 100);
-    const sodiumRate = Math.floor((sodium / recommendedNutrients.sodium) * 100);
+      (protein / recommendedNutrients.protein) * 1000
+    )/10;
+    const fatRate = Math.floor((fat / recommendedNutrients.fat) * 1000)/10;
+    const sugarRate = Math.floor((sugar / recommendedNutrients.sugar) * 1000)/10;
+    const sodiumRate = Math.floor((sodium / recommendedNutrients.sodium) * 1000)/10;
     const cholesterolRate = Math.floor(
-      (cholesterol / recommendedNutrients.cholesterol) * 100
-    );
+      (cholesterol / recommendedNutrients.cholesterol) * 1000
+    )/10;
     const saturatedFatRate = Math.floor(
-      (saturatedFat / recommendedNutrients.saturatedFat) * 100
-    );
+      (saturatedFat / recommendedNutrients.saturatedFat) * 1000
+    )/10;
 
     await textToSpeech(
       "2000칼로리를 기준으로 한 1일 영양성분 기준치에 대하여,"
