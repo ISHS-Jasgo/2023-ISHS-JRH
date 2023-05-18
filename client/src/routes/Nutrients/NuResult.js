@@ -1,22 +1,52 @@
-import { useLocation } from "react-router-dom";
-import { textToSpeech } from "./../../js/tts";
+import { useLocation, useNavigate } from "react-router-dom";
+import { textToSpeech, stopTTS } from "./../../js/tts";
+import { speechToText } from "../../js/stt";
 import { useEffect } from "react";
-import { readJson } from "../../js/read";
-import styles from "./NuResult.module.css";
+import { positiveResponse } from "../../js/sttHandle";
+import { readNutreintsObject } from "../../js/readNutrients";
 
 function NuResult() {
+  const navigate = useNavigate();
+  const navigateTo = (path, params) => {
+    navigate(path, { state: params });
+    console.log("Redirecting...");
+  };
+
   const location = useLocation();
   const result = location.state.resNutrients.nuts;
   const nutrients = result.nutrients;
 
   useEffect(() => {
     const init = async () => {
-      await textToSpeech("제품을 찾았습니다.");
-      const read = new readJson(result);
-      await read.readJsonObject();
+      stopTTS();
+      await textToSpeech("제품을 찾았습니다.", 1);
+      readNutrients();
     };
 
+    const readNutrients = async () => {
+      await readNutreintsObject(result);
+      await textToSpeech("다시 들려드릴까요?", 1);
+      const userRes = await speechToText(3000);
+      if (positiveResponse.has(userRes)) {
+        readNutrients();
+      } else {
+        await textToSpeech("첫 화면으로 이동합니다.", 1);
+        navigateTo("/home");
+      }
+    };
+
+    const preventGoBack = () => {
+      window.history.pushState(null, "", window.location.href);
+    };
+
+    window.history.pushState(null, "", window.location.href);
+    window.addEventListener("popstate", preventGoBack);
+
     init();
+
+    return () => {
+      window.removeEventListener("popstate", preventGoBack);
+    };
   }, []);
 
   return (

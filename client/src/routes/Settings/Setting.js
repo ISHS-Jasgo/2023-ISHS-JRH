@@ -1,11 +1,18 @@
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function Setting() {
-  const navigate = useNavigate();
-  const navigateTo = (path, params) => {
-    navigate(path, { state: params });
-    console.log("Redirecting...");
-  };
+  useEffect(() => {
+    const preventGoBack = () => {
+      window.history.pushState(null, "", window.location.href);
+    };
+
+    window.history.pushState(null, "", window.location.href);
+    window.addEventListener("popstate", preventGoBack);
+
+    return () => {
+      window.removeEventListener("popstate", preventGoBack);
+    };
+  }, []);
 
   return <p>Setting</p>;
 }

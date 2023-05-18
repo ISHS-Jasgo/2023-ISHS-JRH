@@ -26,8 +26,8 @@ function Restaurant() {
 
       if (json.I2790.total_count === "0") {
         setDisplayText("찾으시는 제품이 없습니다...");
-        await textToSpeech("찾으시는 제품이 없습니다...");
-        await textToSpeech("첫 화면으로 이동합니다.");
+        await textToSpeech("찾으시는 제품이 없습니다...", 1);
+        await textToSpeech("첫 화면으로 이동합니다.", 1);
         return null;
       } else {
         return json;
@@ -39,7 +39,10 @@ function Restaurant() {
       let nutrients = null;
       for (const nutrientsData of rawNutrients.I2790.row) {
         setDisplayText(`찾으시는 메뉴가 ${nutrientsData.DESC_KOR} 인가요?`);
-        await textToSpeech(`찾으시는 메뉴가 ${nutrientsData.DESC_KOR} 인가요?`);
+        await textToSpeech(
+          `찾으시는 메뉴가 ${nutrientsData.DESC_KOR} 인가요?`,
+          1
+        );
 
         const userResponse = await speechToText(2500);
         if (positiveResponse.has(userResponse)) {
@@ -54,8 +57,8 @@ function Restaurant() {
         navigateTo("/restaurant/result", { resNutrients: nutrients });
       } else {
         setDisplayText("찾으시는 메뉴가 존재하지 않습니다...");
-        await textToSpeech("찾으시는 메뉴가 존재하지 않습니다...");
-        await textToSpeech("첫 화면으로 이동합니다.");
+        await textToSpeech("찾으시는 메뉴가 존재하지 않습니다...", 1);
+        await textToSpeech("첫 화면으로 이동합니다.", 1);
         navigateTo("/2023-ISHS-JRH");
       }
     };
@@ -70,24 +73,35 @@ function Restaurant() {
       console.log("init started!");
 
       setDisplayText("방문하신 매장의 이름을 말씀해주세요.");
-      await textToSpeech("방문하신 매장의 이름을 말씀해주세요.");
+      await textToSpeech("방문하신 매장의 이름을 말씀해주세요.", 1);
       userRestaurant = await speechToText(3000);
 
       if (restaurantsList.has(userRestaurant)) {
         setDisplayText("주문하실 메뉴의 이름을 말씀해주세요.");
-        await textToSpeech("주문하실 메뉴의 이름을 말씀해주세요.");
+        await textToSpeech("주문하실 메뉴의 이름을 말씀해주세요.", 1);
         userMenu = await speechToText(3000);
         getNutrients();
       } else {
         setDisplayText("찾으시는 매장이 존재하지 않습니다...");
-        await textToSpeech("찾으시는 매장이 존재하지 않습니다...");
-        await textToSpeech("첫 화면으로 이동합니다.");
+        await textToSpeech("찾으시는 매장이 존재하지 않습니다...", 1);
+        await textToSpeech("첫 화면으로 이동합니다.", 1);
         navigateTo("/2023-ISHS-JRH");
       }
     };
 
+    const preventGoBack = () => {
+      window.history.pushState(null, "", window.location.href);
+    };
+
+    window.history.pushState(null, "", window.location.href);
+    window.addEventListener("popstate", preventGoBack);
+
     init();
-    return () => stopTTS();
+
+    return () => {
+      stopTTS();
+      window.removeEventListener("popstate", preventGoBack);
+    };
   }, []);
 
   return <div className={styles.decodiv}>{displayText}</div>;

@@ -12,10 +12,32 @@ audio.addEventListener("ended", () => {
       audio.play();
     }
   }
+  console.log(textQueue);
 });
 
-async function textToSpeech(text, importantRate = 1, speakRate = 1.4) {
-  const audioSource = await getAudioSource(text, speakRate);
+audio.addEventListener("pause", () => {
+  console.log("pause");
+});
+
+const button = document.getElementById("play");
+button.addEventListener("click", () => {
+  textToSpeech(
+    "안녕하세요, 저는 인천과학고 29기 이우진입니다. 제 키는 작년에 비해서 1cm정도 성장하였지만 앞으로 더 클 수 있을 지 모르겠습니다."
+  );
+});
+
+const important = document.getElementById("important");
+important.addEventListener("click", () => {
+  textToSpeech("중요한", 2);
+});
+
+const more = document.getElementById("more");
+more.addEventListener("click", () => {
+  textToSpeech("더 중요한", 3);
+});
+
+async function textToSpeech(text, importantRate = 1.4) {
+  const audioSource = await getAudioSource(text);
 
   if (textQueue.length === 0) {
     textQueue.push({ audioSource, importantRate });
@@ -24,8 +46,8 @@ async function textToSpeech(text, importantRate = 1, speakRate = 1.4) {
     audio.play();
   } else {
     textQueue.push({ audioSource, importantRate });
+    4;
     TQlength++;
-
     while (
       TQlength >= 2 &&
       textQueue[TQlength - 1].importantRate >
@@ -41,17 +63,7 @@ async function textToSpeech(text, importantRate = 1, speakRate = 1.4) {
       audio.play();
     }
   }
-
-  return new Promise((resolve) => {
-    audio.addEventListener(
-      "ended",
-      () => {
-        console.log("tts end!");
-        resolve();
-      },
-      { once: true }
-    );
-  });
+  console.log(textQueue);
 }
 
 async function getAudioSource(text, speakRate = 1.4) {
@@ -93,27 +105,3 @@ function stopTTS() {
   audio.src = "";
   audio.load();
 }
-
-function getDevice() {
-  let ua = navigator.userAgent.toLowerCase();
-  if (ua.indexOf("android") > -1) {
-    return "android";
-  } else if (
-    ua.indexOf("iphone") > -1 ||
-    ua.indexOf("ipad") > -1 ||
-    ua.indexOf("ipod") > -1
-  ) {
-    return "ios";
-  } else {
-    return "computer";
-  }
-}
-
-function getSpeed() {
-  let device = getDevice();
-  if (device === "ios") return 1.2;
-  else if (device === "android") return 1.5;
-  else return 2;
-}
-
-export { getSpeed, getDevice, textToSpeech, stopTTS };
