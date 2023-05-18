@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/2023-ISHS-JRH/static/css/main.d30c6a41.chunk.css",
+    "main.js": "/2023-ISHS-JRH/static/js/main.3bf3be31.chunk.js",
+    "main.js.map": "/2023-ISHS-JRH/static/js/main.3bf3be31.chunk.js.map",
+    "runtime-main.js": "/2023-ISHS-JRH/static/js/runtime-main.3a3bebd7.js",
+    "runtime-main.js.map": "/2023-ISHS-JRH/static/js/runtime-main.3a3bebd7.js.map",
+    "static/js/2.b927ef73.chunk.js": "/2023-ISHS-JRH/static/js/2.b927ef73.chunk.js",
+    "static/js/2.b927ef73.chunk.js.map": "/2023-ISHS-JRH/static/js/2.b927ef73.chunk.js.map",
+    "index.html": "/2023-ISHS-JRH/index.html",
+    "static/css/main.d30c6a41.chunk.css.map": "/2023-ISHS-JRH/static/css/main.d30c6a41.chunk.css.map",
+    "static/js/2.b927ef73.chunk.js.LICENSE.txt": "/2023-ISHS-JRH/static/js/2.b927ef73.chunk.js.LICENSE.txt",
+    "static/media/logo.27187399.jpg": "/2023-ISHS-JRH/static/media/logo.27187399.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3a3bebd7.js",
+    "static/js/2.b927ef73.chunk.js",
+    "static/css/main.d30c6a41.chunk.css",
+    "static/js/main.3bf3be31.chunk.js"
+  ]
+}
