@@ -59,13 +59,13 @@ function Restaurant() {
         setDisplayText("찾으시는 메뉴가 존재하지 않습니다...");
         await textToSpeech("찾으시는 메뉴가 존재하지 않습니다...", 1);
         await textToSpeech("첫 화면으로 이동합니다.", 1);
-        navigateTo("/2023-ISHS-JRH");
+        navigateTo("/home");
       }
     };
 
     const rawNutrients = await fetchNutrients();
     if (rawNutrients !== null) selectProduct();
-    else navigateTo("/2023-ISHS-JRH");
+    else navigateTo("/home");
   };
 
   useEffect(() => {
@@ -85,7 +85,7 @@ function Restaurant() {
         setDisplayText("찾으시는 매장이 존재하지 않습니다...");
         await textToSpeech("찾으시는 매장이 존재하지 않습니다...", 1);
         await textToSpeech("첫 화면으로 이동합니다.", 1);
-        navigateTo("/2023-ISHS-JRH");
+        navigateTo("/home");
       }
     };
 

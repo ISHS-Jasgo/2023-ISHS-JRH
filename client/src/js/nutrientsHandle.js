@@ -6,7 +6,7 @@
 function setNutrients(candidate) {
   if (candidate !== "") {
     //set nutrients
-    const calories = candidate.NUTR_CONT1;
+    const calorie = candidate.NUTR_CONT1;
     const carbohydrate = candidate.NUTR_CONT2;
     const protein = candidate.NUTR_CONT3;
     const fat = candidate.NUTR_CONT4;
@@ -21,7 +21,7 @@ function setNutrients(candidate) {
     const nutrients = {
       name: candidate.DESC_KOR,
       maker: candidate.MAKER_NAME,
-      calories: calories,
+      calorie: calorie,
       nutrients: {
         carbohydrate: carbohydrate,
         protein: protein,
@@ -40,13 +40,12 @@ function setNutrients(candidate) {
         nutrients.nutrients[key] = "0";
       }
     }
+    if (nutrients.calorie === "") nutrients.calorie = "0";
 
     //return
     result["nuts"] = nutrients;
     return result;
   }
 }
-
-function readNutrients(result) {}
 
 export { setNutrients };
