@@ -1,10 +1,13 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Button from "../components/Global/Button";
+import ImgButton from "../components/Global/ImgButton";
 import { useEffect, useState } from "react";
 import { textToSpeech } from "../js/tts";
 import { speechToText } from "../js/stt";
 import Button from "../components/Global/Button";
 import ImgButton from "../components/Global/ImgButton";
 import Logo from "./logo.jpg";
+import ISHSlogo from "./ISHSlogo.png";
 import styles from "./Home.module.css";
 
 function Home() {
@@ -13,8 +16,6 @@ function Home() {
     navigate(path);
     console.log("Redirecting...");
   };
-
-  const location = useLocation();
 
   useEffect(() => {
     const init = async () => {
@@ -91,11 +92,13 @@ function Home() {
       <div>
         <ImgButton
           classname={styles.settingimg}
-          onclick={() => navigateTo("/Settings")}
+          onClick={() => navigateTo("/settings")}
+          imgSource="setting"
         />
       </div>
+
       <div className={styles.aboutlogo}>
-        <img src={Logo} width="300px" height="auto" alt="logo"></img>
+        <img className={styles.sizeimage} src={Logo}></img>
       </div>
       <div>
         <div className={styles.divbtnone}>

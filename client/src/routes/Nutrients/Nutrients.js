@@ -47,7 +47,6 @@ function Nutrients() {
         })
           .then((response) => response.json())
           .then((data) => {
-            //console.log(data.result);
             if (data.result !== "not found" && !isNumDetected) {
               setIsNumDetected(true);
             }

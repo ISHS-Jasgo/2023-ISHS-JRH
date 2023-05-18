@@ -15,9 +15,15 @@ audio.addEventListener("ended", () => {
   console.log(textQueue);
 });
 
+audio.addEventListener("pause", () => {
+  console.log("pause");
+});
+
 const button = document.getElementById("play");
 button.addEventListener("click", () => {
-  textToSpeech("안 중요한");
+  textToSpeech(
+    "안녕하세요, 저는 인천과학고 29기 이우진입니다. 제 키는 작년에 비해서 1cm정도 성장하였지만 앞으로 더 클 수 있을 지 모르겠습니다."
+  );
 });
 
 const important = document.getElementById("important");
@@ -30,7 +36,7 @@ more.addEventListener("click", () => {
   textToSpeech("더 중요한", 3);
 });
 
-async function textToSpeech(text, importantRate = 1) {
+async function textToSpeech(text, importantRate = 1.4) {
   const audioSource = await getAudioSource(text);
 
   if (textQueue.length === 0) {

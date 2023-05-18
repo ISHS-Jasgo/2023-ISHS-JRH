@@ -12,7 +12,6 @@ audio.addEventListener("ended", () => {
       audio.play();
     }
   }
-  //console.log(textQueue);
 });
 
 async function textToSpeech(text, importantRate = 1, speakRate = 1.4) {

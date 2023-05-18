@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
+
+.description {
+  font-family: "Jua", sans-serif;
+  font-weight: 400;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 32vh;
+  font-size: 3.3rem;
+}
+.textcolor {
+  background-color: rgb(44, 109, 212);
+  display: inline;
+}
+.nope {
+  font-family: "Jua", sans-serif;
+  font-weight: 400;
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2.8rem;
+}
+.warn {
+  font-family: "Jua", sans-serif;
+  font-weight: 400;
+  background-color: yellow;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2.8rem;
+}
+.caneat {
+  font-family: "Jua", sans-serif;
+  font-weight: 400;
+  background-color: green;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2.8rem;
+}
