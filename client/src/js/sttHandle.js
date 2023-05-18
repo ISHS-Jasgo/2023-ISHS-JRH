@@ -99,6 +99,7 @@ const negativeResponse = new Set([
   "아님",
   "아니에요",
   "아냐",
+  "아니야",
   "아뇨",
   "아녀",
 ]);

@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { useEffect } from "react";
 import Home from "./routes/Home";
 import Nutrients from "./routes/Nutrients/Nutrients";
 import NuResult from "./routes/Nutrients/NuResult";
@@ -9,6 +8,7 @@ import Restaurant from "./routes/Restaurant/Restaurant";
 import ReResult from "./routes/Restaurant/ReResult";
 import Help from "./routes/Help/Help";
 import Setting from "./routes/Settings/Setting";
+import First from "./routes/First";
 
 function App() {
   //<Route path={`${process.env.PUBLIC_URL}/`} element={<Home />} />
@@ -22,9 +22,11 @@ function App() {
         <Route path="/expiration" element={<Expiration />} />
         <Route path="/restaurant" element={<Restaurant />} />
         <Route path="/restaurant/result" element={<ReResult />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/help" element={<Help />} />
         <Route path="/settings" element={<Setting />} />
-        <Route path={`${process.env.PUBLIC_URL}/`} element={<Home />} />
+        <Route path={`${process.env.PUBLIC_URL}/`} element={<First />} />
+        <Route path="/" element={<First />} />
       </Routes>
     </Router>
   );
