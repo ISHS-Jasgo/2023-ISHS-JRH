@@ -25,22 +25,33 @@ function ExResult() {
     };
 
     const speakDate = async () => {
-      await textToSpeech(ttsText);
-      await textToSpeech("다시 들려드릴까요?", true);
+      await textToSpeech(ttsText, 1);
+      await textToSpeech("다시 들려드릴까요?", 1);
       const userRes = await speechToText(3000);
       if (positiveResponse.has(userRes)) {
         speakDate();
       } else {
-        await textToSpeech("첫 화면으로 이동합니다.", true);
+        await textToSpeech("첫 화면으로 이동합니다.", 1);
         navigateTo("/home");
       }
     };
+
+    const preventGoBack = () => {
+      window.history.pushState(null, "", window.location.href);
+    };
+
+    window.history.pushState(null, "", window.location.href);
+    window.addEventListener("popstate", preventGoBack);
 
     const resDate = setDate();
     const ttsText = `상품의 유통기한은 ${resDate} 입니다.`;
     setResText(ttsText);
 
     speakDate();
+
+    return () => {
+      window.removeEventListener("popstate", preventGoBack);
+    };
   }, []);
 
   return (

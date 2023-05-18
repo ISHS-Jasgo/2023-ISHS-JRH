@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function First() {
@@ -6,9 +7,24 @@ function First() {
     navigate(path, { state: params });
     console.log("Redirecting...");
   };
+
   const onClick = () => {
     navigateTo("/home");
   };
+
+  useEffect(() => {
+    const preventGoBack = () => {
+      window.history.pushState(null, "", window.location.href);
+    };
+
+    window.history.pushState(null, "", window.location.href);
+    window.addEventListener("popstate", preventGoBack);
+
+    return () => {
+      window.removeEventListener("popstate", preventGoBack);
+    };
+  }, []);
+
   return (
     <div onClick={onClick} style={{ width: "100vw", height: "100vh" }}>
       <h1>클릭해 주세요!</h1>;

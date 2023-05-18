@@ -104,24 +104,32 @@ function Nutrients() {
   };
 
   useEffect(() => {
-    window.speechSynthesis.getVoices();
-    textToSpeech("품목보고번호 탐색을 시작합니다.", true);
+    const preventGoBack = () => {
+      window.history.pushState(null, "", window.location.href);
+    };
+
+    window.history.pushState(null, "", window.location.href);
+    window.addEventListener("popstate", preventGoBack);
+
+    textToSpeech("품목보고번호 탐색을 시작합니다.", 2);
     const id = setInterval(() => {
       if (search.current) {
         drawToCanvas();
         sendImage();
       }
     }, 350);
+
     return () => {
       clearInterval(id);
       stopTTS();
+      window.removeEventListener("popstate", preventGoBack);
     };
   }, []);
 
   useEffect(() => {
     if (isNumDetected) {
       console.log("number detected!");
-      textToSpeech("품목보고번호가 감지되었습니다.", true);
+      textToSpeech("품목보고번호가 감지되었습니다.", 1);
     }
   }, [isNumDetected]);
 
@@ -131,7 +139,7 @@ function Nutrients() {
       let { res, repeatCnt } = getMode(resultArr);
       if (res === "not found") {
         console.log("failed.. begin to search");
-        textToSpeech("탐색중.", false);
+        textToSpeech("탐색중.", 0);
         search.current = true;
       } else {
         console.log("success!");
@@ -157,7 +165,7 @@ function Nutrients() {
         .catch((err) => {
           console.log(err);
           console.log("product not found. begin to search.");
-          textToSpeech("일치하는 상품이 없습니다. 재탐색합니다.", true);
+          textToSpeech("일치하는 상품이 없습니다. 재탐색합니다.", 2);
           setProductNum("");
           search.current = true;
         });

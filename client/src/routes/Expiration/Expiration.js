@@ -62,20 +62,45 @@ function Expiration() {
 
   useEffect(() => {
     let intervalId = 0;
+
+    const notFound = async () => {
+      stopTTS();
+      await textToSpeech("유통기한이 감지되지 않았습니다.", 2);
+      stopTTS();
+      await textToSpeech("홈 화면으로 이동합니다.", 2);
+      stopTTS();
+      navigateTo("/home");
+    };
+
     const init = async () => {
-      await textToSpeech("유통기한 탐색을 시작합니다.", true);
+      let cycleCount = 0;
+      stopTTS();
+      await textToSpeech("유통기한 탐색을 시작합니다.", 2);
       const id = setInterval(() => {
         if (intervalId === 0) intervalId = id;
-        //console.log("hahaha");
+        if (cycleCount >= 70) {
+          console.log("not found");
+          clearInterval(intervalId);
+          notFound();
+        }
         drawToCanvas();
         sendImage();
-      }, 250);
+        cycleCount += 1;
+      }, 350);
     };
+
+    const preventGoBack = () => {
+      window.history.pushState(null, "", window.location.href);
+    };
+
+    window.history.pushState(null, "", window.location.href);
+    window.addEventListener("popstate", preventGoBack);
 
     init();
     return () => {
       clearInterval(intervalId);
-      stopTTS();
+
+      window.removeEventListener("popstate", preventGoBack);
     };
   }, []);
 
@@ -83,7 +108,8 @@ function Expiration() {
     const dateDetected = async () => {
       if (isDateDetected) {
         console.log("date detected!");
-        await textToSpeech("유통기한이 감지되었습니다.", true);
+        stopTTS();
+        await textToSpeech("유통기한이 감지되었습니다.", 1);
       }
     };
 
@@ -104,7 +130,7 @@ function Expiration() {
           console.log("failed.. begin to search");
           search.current = true;
           init();
-          await textToSpeech("탐색중.", false);
+          await textToSpeech("탐색중.", 0);
         } else {
           console.log("success!");
           console.log(`found result is ${res}`);

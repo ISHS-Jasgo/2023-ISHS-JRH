@@ -9,6 +9,20 @@ function Help() {
     navigate(path, { state: params });
     console.log("Redirecting...");
   };
+
+  useEffect(() => {
+    const preventGoBack = () => {
+      window.history.pushState(null, "", window.location.href);
+    };
+
+    window.history.pushState(null, "", window.location.href);
+    window.addEventListener("popstate", preventGoBack);
+
+    return () => {
+      window.removeEventListener("popstate", preventGoBack);
+    };
+  }, []);
+
   return (
     <div className={styles.center}>
       <h1 className={styles.prettytext}> 도움말 </h1>

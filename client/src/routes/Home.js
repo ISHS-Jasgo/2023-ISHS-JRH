@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { textToSpeech } from "../js/tts";
 import { speechToText } from "../js/stt";
@@ -14,10 +14,13 @@ function Home() {
     console.log("Redirecting...");
   };
 
+  const location = useLocation();
+
   useEffect(() => {
     const init = async () => {
       await textToSpeech(
-        "영양성분, 유통기한, 도움말 중 원하시는 기능을 말씀해주세요."
+        "영양성분, 유통기한, 도움말 중 원하시는 기능을 말씀해주세요.",
+        3
       );
       const getButton = async () => {
         const res1 = await speechToText(3000);
@@ -25,22 +28,25 @@ function Home() {
           case "영양 성분":
           case "영양성분":
             await textToSpeech(
-              "가공식품의 영양성분을 알고 싶으시다면 '가공식품', 음식점 메뉴의 영양성분을 알고 싶으시다면 '음식점'을 말씀해주세요."
+              "가공식품의 영양성분을 알고 싶으시다면 '가공식품', 음식점 메뉴의 영양성분을 알고 싶으시다면 '음식점'을 말씀해주세요.",
+              3
             );
             const getNutrientsWhere = async () => {
               const res2 = await speechToText(3000);
               if (res2 === "가공식품" || res2 === "가공 식품") {
                 await textToSpeech(
-                  "가공식품 영양정보 찾기 화면으로 이동합니다."
+                  "가공식품 영양정보 찾기 화면으로 이동합니다.",
+                  2
                 );
                 navigateTo("/nutrients");
               } else if (res2 === "음식점") {
                 await textToSpeech(
-                  "음식점 메뉴 영양정보 찾기 화면으로 이동합니다."
+                  "음식점 메뉴 영양정보 찾기 화면으로 이동합니다.",
+                  2
                 );
                 navigateTo("/restaurant");
               } else {
-                await textToSpeech("다시 한 번 말씀해 주시겠어요?");
+                await textToSpeech("다시 한 번 말씀해 주시겠어요?", 2);
                 getNutrientsWhere();
               }
             };
@@ -48,24 +54,36 @@ function Home() {
             break;
 
           case "유통기한":
-            await textToSpeech("유통기한 찾기 화면으로 이동합니다.");
+            await textToSpeech("유통기한 찾기 화면으로 이동합니다.", 2);
             navigateTo("/expiration");
             break;
 
           case "도움말":
-            await textToSpeech("도움말 화면으로 이동합니다.");
+            await textToSpeech("도움말 화면으로 이동합니다.", 2);
             navigateTo("/help");
             break;
 
           default:
-            await textToSpeech("다시 한 번 말씀해 주시겠어요?");
+            await textToSpeech("다시 한 번 말씀해 주시겠어요?", 2);
             getButton();
             break;
         }
       };
       getButton();
     };
+
+    const preventGoBack = () => {
+      window.history.pushState(null, "", window.location.href);
+    };
+
+    window.history.pushState(null, "", window.location.href);
+    window.addEventListener("popstate", preventGoBack);
+
     init();
+
+    return () => {
+      window.removeEventListener("popstate", preventGoBack);
+    };
   }, []);
 
   return (
@@ -77,7 +95,7 @@ function Home() {
         />
       </div>
       <div className={styles.aboutlogo}>
-        <img src={Logo} width={300}></img>
+        <img src={Logo} width="300px" height="auto" alt="logo"></img>
       </div>
       <div>
         <div className={styles.divbtnone}>

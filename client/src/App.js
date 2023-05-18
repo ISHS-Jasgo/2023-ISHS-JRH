@@ -24,6 +24,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/help" element={<Help />} />
         <Route path={`${process.env.PUBLIC_URL}/`} element={<First />} />
+        <Route path="/" element={<First />} />
       </Routes>
     </Router>
   );

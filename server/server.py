@@ -99,10 +99,10 @@ def hi():
         content = base64.b64decode(imagestring)
     except:
         return jsonify({"result": 'base64 died'})
-    image = vision.Image(content=content)
+    image = vision.Image(content= content)
 
     response = client.text_detection(image=image)
-    texts = response.text_annotations
+    texts = response.text_annotations 
 
     for text in texts:
         chunk = text.description

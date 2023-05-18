@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { textToSpeech } from "./../../js/tts";
+import { textToSpeech, stopTTS } from "./../../js/tts";
 import { speechToText } from "../../js/stt";
 import { useEffect } from "react";
 import { positiveResponse } from "../../js/sttHandle";
@@ -18,6 +18,7 @@ function NuResult() {
 
   useEffect(() => {
     const init = async () => {
+      stopTTS();
       await textToSpeech("제품을 찾았습니다.");
       readNutrients();
     };
@@ -34,7 +35,18 @@ function NuResult() {
       }
     };
 
+    const preventGoBack = () => {
+      window.history.pushState(null, "", window.location.href);
+    };
+
+    window.history.pushState(null, "", window.location.href);
+    window.addEventListener("popstate", preventGoBack);
+
     init();
+
+    return () => {
+      window.removeEventListener("popstate", preventGoBack);
+    };
   }, []);
 
   return (
