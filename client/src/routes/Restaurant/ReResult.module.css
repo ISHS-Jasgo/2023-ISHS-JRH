@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
+
+.pretty {
+  font-family: "Jua", sans-serif;
+  background-color: rgba(92, 206, 251, 0.824);
+  font-weight: 400;
+  font-size: 45px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.decoul {
+  font-family: "Jua", sans-serif;
+  font-weight: 400;
+  font-size: 30px;
+  margin: 50px;
+  width: 50%;
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+  border: solid black;
+  border-radius: 15px;
+}
+
+.decoli {
+  padding: 5px 0px 5px 5px;
+  margin-bottom: 5px;
+  border-bottom: 2px solid #efefef;
+}
+.decolisad {
+  padding: 5px 0px 5px 5px;
+  margin-bottom: 5px;
+}
