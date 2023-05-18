@@ -2,8 +2,20 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { textToSpeech } from "./../../js/tts";
 import { speechToText } from "../../js/stt";
 import { positiveResponse } from "../../js/sttHandle";
-import { useEffect } from "react";
-import { readNutreintsObject } from "../../js/readNutrients";
+import { useCallback, useEffect } from "react";
+import {
+  readNutreintsObject,
+  claR,
+  carboR,
+  proR,
+  fatR,
+  suR,
+  soR,
+  choR,
+  saturR,
+  curr,
+} from "../../js/readNutrients";
+import styles from "./ReResult.module.css";
 
 function ReResult() {
   const navigate = useNavigate();
@@ -50,17 +62,59 @@ function ReResult() {
 
   return (
     <div>
-      <h1>상품명: {result.name}</h1>
-      <ul>
-        <li>칼로리: {result.calories}kcal</li>
-        <li>탄수화물: {nutrients.carbohydrate}g</li>
-        <li>단백질: {nutrients.protein}g</li>
-        <li>지방: {nutrients.fat}g</li>
-        <li>당류: {nutrients.sugar}g</li>
-        <li>나트륨: {nutrients.sodium}mg</li>
-        <li>콜레스테롤: {nutrients.cholesterol}mg</li>
-        <li>포화지방: {nutrients.saturatedFat}g</li>
-        <li>트랜스지방: {nutrients.transFat}g</li>
+      <h1 className={styles.pretty}>상품명 | {result.name}</h1>
+      <ul className={styles.decoul}>
+        {curr ? (
+          <div>
+            <li className={styles.decoli}>
+              칼로리 | {result.calories}kcal / {claR}%
+            </li>
+            <li className={styles.decoli}>
+              탄수화물 | {nutrients.carbohydrate}g / {carboR}%
+            </li>
+            <li className={styles.decoli}>
+              단백질 | {nutrients.protein}g / {proR}%
+            </li>
+            <li className={styles.decoli}>
+              지방 | {nutrients.fat}g / {fatR}%
+            </li>
+            <li className={styles.decoli}>
+              당류 | {nutrients.sugar}g / {suR}%
+            </li>
+            <li className={styles.decoli}>
+              나트륨 | {nutrients.sodium}mg / {soR}%
+            </li>
+            <li className={styles.decoli}>
+              콜레스테롤 | {nutrients.cholesterol}mg / {choR}%
+            </li>
+            <li className={styles.decoli}>
+              포화지방 | {nutrients.saturatedFat}g / {saturR}%
+            </li>
+            <li className={styles.decolisad}>
+              트랜스지방 | {nutrients.transFat}g
+            </li>
+          </div>
+        ) : (
+          <div>
+            <li className={styles.decoli}> 칼로리 | {result.calories}kcal</li>
+            <li className={styles.decoli}>
+              탄수화물 | {nutrients.carbohydrate}g
+            </li>
+            <li className={styles.decoli}> 단백질 | {nutrients.protein}g</li>
+            <li className={styles.decoli}> 지방 | {nutrients.fat}g</li>
+            <li className={styles.decoli}> 당류 | {nutrients.sugar}g</li>
+            <li className={styles.decoli}> 나트륨 | {nutrients.sodium}mg</li>
+            <li className={styles.decoli}>
+              콜레스테롤 | {nutrients.cholesterol}mg
+            </li>
+            <li className={styles.decoli}>
+              포화지방 | {nutrients.saturatedFat}g
+            </li>
+            <li className={styles.decolisad}>
+              트랜스지방 | {nutrients.transFat}g
+            </li>
+          </div>
+        )}
       </ul>
     </div>
   );

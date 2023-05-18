@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import styles from "./First.module.css";
 
 function First() {
   const navigate = useNavigate();
@@ -26,8 +27,8 @@ function First() {
   }, []);
 
   return (
-    <div onClick={onClick} style={{ width: "100vw", height: "100vh" }}>
-      <h1>클릭해 주세요!</h1>;
+    <div className={styles.decodiv} onClick={onClick}>
+      <h1 className={styles.decoh}>클릭해 주세요!</h1>
     </div>
   );
 }

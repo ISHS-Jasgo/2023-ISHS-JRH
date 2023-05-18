@@ -1,4 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
+body {
+  -ms-overflow-style: none;
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+
 .center {
   display: flex;
   flex-direction: column;
@@ -6,6 +13,10 @@
   margin-top: 5px;
   font-family: "Jua", sans-serif;
   padding-left: 15px;
+}
+
+.scroll::-webkit-scrollbar {
+  display: none;
 }
 .prettytext {
   font-size: 50px;
