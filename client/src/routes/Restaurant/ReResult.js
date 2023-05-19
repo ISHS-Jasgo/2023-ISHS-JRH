@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { textToSpeech } from "./../../js/tts";
 import { speechToText } from "../../js/stt";
 import { positiveResponse } from "../../js/sttHandle";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   readNutreintsObject,
   claR,
@@ -24,6 +24,8 @@ function ReResult() {
     console.log("Redirecting...");
   };
 
+  const [showRate, setShowRate] = useState(false);
+
   const location = useLocation();
   const result = location.state.resNutrients.nuts;
   const nutrients = result.nutrients;
@@ -31,7 +33,7 @@ function ReResult() {
   useEffect(() => {
     const init = async () => {
       await textToSpeech("제품을 찾았습니다.", 1);
-      readNutrients();
+      await readNutrients();
     };
 
     const readNutrients = async () => {
