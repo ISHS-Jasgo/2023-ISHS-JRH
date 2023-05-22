@@ -87,12 +87,14 @@ function Home() {
 
   return (
     <div>
-      <div>
+      {/* set div display inline */}
+      <div className={styles.line}>
         <ImgButton
           classname={styles.settingimg}
           onClick={() => navigateTo("/settings")}
           imgSource="setting"
         />
+        <img className={styles.ishslogo} src={ISHSlogo}></img>
       </div>
 
       <div className={styles.aboutlogo}>

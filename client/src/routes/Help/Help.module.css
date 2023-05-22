@@ -1,4 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
+body {
+  -ms-overflow-style: none;
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+
 .center {
   display: flex;
   flex-direction: column;
