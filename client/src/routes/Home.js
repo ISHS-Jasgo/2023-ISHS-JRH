@@ -91,7 +91,7 @@ function Home() {
       <div className={styles.line}>
         <ImgButton
           classname={styles.settingimg}
-          onClick={() => navigateTo("/settings")}
+          //onClick={() => navigateTo("/settings")}
           imgSource="setting"
         />
         <img className={styles.ishslogo} src={ISHSlogo}></img>
@@ -105,29 +105,32 @@ function Home() {
           <Button
             classname={styles.myButton}
             text="영양성분"
-            onClick={() => navigateTo("/nutrients")}
+            //onClick={() => navigateTo("/nutrients")}
           />
 
           <Button
             classname={styles.myButton}
             text="유통기한"
-            onClick={() => navigateTo("/expiration")}
+            //onClick={() => navigateTo("/expiration")}
           />
         </div>
         <div className={styles.divbtntwo}>
           <Button
             classname={styles.myButton}
             text="음식점"
-            onClick={() => navigateTo("/restaurant")}
+            //onClick={() => navigateTo("/restaurant")}
           />
 
           <Button
             classname={styles.myButton}
             text="도움말"
-            onClick={() => navigateTo("/help")}
+            //onClick={() => navigateTo("/help")}
           />
         </div>
       </div>
+      <h6 style={{ margin: "0px" }} align="center">
+        시각장애인용 모드입니다. 버튼이 눌리지 않습니다.
+      </h6>
     </div>
   );
 }

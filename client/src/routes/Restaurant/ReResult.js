@@ -21,6 +21,7 @@ function ReResult() {
   const location = useLocation();
   const result = location.state.resNutrients.nuts;
   const nutrients = result.nutrients;
+  const calorie = result.calorie;
 
   const [rate, setRate] = useState({});
   const [isRateLoaded, setIsRateLoaded] = useState(false);
@@ -33,11 +34,12 @@ function ReResult() {
       if (resForRate === true) {
         const nutreintsRate = await getNutrientsRate(result);
         setRate(nutreintsRate);
+        console.log(rate);
         setIsRateLoaded(true);
         await readNutrientsRate(nutreintsRate);
       }
 
-      await textToSpeech("다시 들려드릴까요?", 1);
+      await textToSpeech("영양성분 정보를 다시 들려드릴까요?", 1);
       const userRes = await speechToText(3000);
       if (positiveResponse.has(userRes)) {
         readNutrients();
@@ -72,32 +74,36 @@ function ReResult() {
       <h1 className={styles.pretty}>상품명 | {result.name}</h1>
       <ul className={styles.decoul}>
         <li className={styles.decoli}>
-          칼로리 | {result.calorie}kcal / {isRateLoaded ? rate.calorie : null}%
+          칼로리 | {calorie}g{isRateLoaded ? ` / ${rate.calorieRate}%` : null}
         </li>
         <li className={styles.decoli}>
-          탄수화물 | {nutrients.carbohydrate}g /{" "}
-          {isRateLoaded ? rate.carbohydrate : null}%
+          탄수화물 | {nutrients.carbohydrate}g
+          {isRateLoaded ? ` / ${rate.carbohydrateRate}%` : null}
         </li>
         <li className={styles.decoli}>
-          단백질 | {nutrients.protein}g / {isRateLoaded ? rate.protein : null}%
+          단백질 | {nutrients.protein}g
+          {isRateLoaded ? ` / ${rate.proteinRate}%` : null}
         </li>
         <li className={styles.decoli}>
-          지방 | {nutrients.fat}g / {isRateLoaded ? rate.fat : null}%
+          지방 | {nutrients.fat}g{isRateLoaded ? ` / ${rate.fatRate}%` : null}
         </li>
         <li className={styles.decoli}>
-          당류 | {nutrients.sugar}g {isRateLoaded ? `/ ${rate.sugar}%` : null}
+          당류 | {nutrients.sugar}g
+          {isRateLoaded ? ` / ${rate.sugarRate}%` : null}
         </li>
         <li className={styles.decoli}>
-          나트륨 | {nutrients.sodium}mg / {isRateLoaded ? rate.sodium : null}%
+          나트륨 | {nutrients.sodium}mg
+          {isRateLoaded ? ` / ${rate.sodiumRate}%` : null}
         </li>
         <li className={styles.decoli}>
-          콜레스테롤 | {nutrients.cholesterol}mg /{" "}
-          {isRateLoaded ? rate.cholesterol : null}%
+          콜레스테롤 | {nutrients.cholesterol}mg
+          {isRateLoaded ? ` / ${rate.cholesterolRate}%` : null}
         </li>
         <li className={styles.decoli}>
-          포화지방 | {nutrients.saturatedFat}g /{" "}
-          {isRateLoaded ? rate.saturatedFat : null}%
+          포화지방 | {nutrients.saturatedFat}g
+          {isRateLoaded ? ` / ${rate.saturatedFatRate}%` : null}
         </li>
+
         <li className={styles.decolisad}>트랜스지방 | {nutrients.transFat}g</li>
       </ul>
     </div>

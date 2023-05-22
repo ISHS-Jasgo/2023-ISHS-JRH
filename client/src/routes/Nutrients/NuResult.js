@@ -31,8 +31,7 @@ function NuResult() {
       await readNutreintsObject(result);
 
       const resForRate = await askForRate();
-      // if (resForRate === true) {
-      if (true) {
+      if (resForRate === true) {
         const nutreintsRate = await getNutrientsRate(result);
         setRate(nutreintsRate);
         console.log(rate);
