@@ -87,6 +87,15 @@ const positiveResponse = new Set([
   "어",
   "맞을걸요",
   "맞음",
+  "네네네",
+  "어어",
+  "응응",
+  "웅",
+  "네넹",
+  "넵넵",
+  "네네",
+  "네넵",
+  "넹넹",
 ]);
 
 const negativeResponse = new Set([
