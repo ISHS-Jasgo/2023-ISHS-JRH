@@ -27,7 +27,7 @@ function Home() {
           case "영양 성분":
           case "영양성분":
             await textToSpeech(
-              "가공식품의 영양성분을 알고 싶으시다면 '가공식품', 음식점 메뉴의 영양성분을 알고 싶으시다면 '음식점'을 말씀해주세요.",
+              "가공식품의 영양성분을 알고 싶으시다면 '가공식품', 음식점의 영양성분을 알고 싶으시다면 '음식점'을 말씀해주세요.",
               3
             );
             const getNutrientsWhere = async () => {
@@ -40,7 +40,7 @@ function Home() {
                 navigateTo("/nutrients");
               } else if (res2 === "음식점") {
                 await textToSpeech(
-                  "음식점 메뉴 영양정보 찾기 화면으로 이동합니다.",
+                  "음식점 영양정보 찾기 화면으로 이동합니다.",
                   2
                 );
                 navigateTo("/restaurant");

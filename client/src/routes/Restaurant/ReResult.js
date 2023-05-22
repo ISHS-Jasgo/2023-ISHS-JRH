@@ -18,6 +18,8 @@ function ReResult() {
     console.log("Redirecting...");
   };
 
+  const [showRate, setShowRate] = useState(false);
+
   const location = useLocation();
   const result = location.state.resNutrients.nuts;
   const nutrients = result.nutrients;

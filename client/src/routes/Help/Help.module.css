@@ -13,13 +13,14 @@ body::-webkit-scrollbar {
   margin-top: 5px;
   font-family: "Jua", sans-serif;
   padding-left: 15px;
+  padding-right: 15px;
 }
 
 .scroll::-webkit-scrollbar {
   display: none;
 }
 .prettytext {
-  font-size: 50px;
+  font-size: 30px;
   font-weight: 400;
 }
 .btnhad {
@@ -53,5 +54,10 @@ body::-webkit-scrollbar {
 
 .decohr {
   height: 2px;
-  background-color: grey;
+  background-color: rgb(92, 92, 92);
+}
+
+.decodiv {
+  margin-left: 10px;
+  margin-right: 10px;
 }
