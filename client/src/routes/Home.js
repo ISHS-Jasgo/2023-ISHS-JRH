@@ -103,6 +103,7 @@ function Home() {
           //onClick={() => navigateTo("/settings")}
           imgSource="setting"
         />
+        <img className={styles.ishslogo} src={ISHSlogo}></img>
       </div>
 
       <div className={styles.aboutlogo}>

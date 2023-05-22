@@ -1,4 +1,9 @@
+import record from "../routes/record.mp3"
+
 async function speechToText(interval = 3000) {
+  //play record.mp3
+  const audio = new Audio(record);
+  audio.play();
   //final return value
   let sttResult = "";
 
