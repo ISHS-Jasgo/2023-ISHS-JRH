@@ -1,9 +1,8 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Button from "../components/Global/Button";
 import ImgButton from "../components/Global/ImgButton";
-import Setting from "./Setting/Setting";
 import Modal from "../components/Setting/Modal";
-import { useEffect, useState } from "react";
 import { textToSpeech } from "../js/tts";
 import { speechToText } from "../js/stt";
 import Logo from "./logo.jpg";
@@ -27,8 +26,8 @@ function Home() {
     const getButton = async () => {
       const res1 = await speechToText(3000);
       switch (res1) {
-        case "영양 성분":
-        case "영양성분":
+        case "식품 정보":
+        case "식품정보":
           await textToSpeech(
             "가공식품의 영양성분 및 식품 정보를 알고 싶으시다면 '가공식품', 음식점 메뉴의 영양성분을 알고 싶으시다면 '음식점'을 말씀해주세요.",
             3
@@ -49,10 +48,10 @@ function Home() {
               navigateTo("/restaurant");
             } else {
               await textToSpeech("다시 한 번 말씀해 주시겠어요?", 2);
-              getNutrientsWhere();
+              await getNutrientsWhere();
             }
           };
-          getNutrientsWhere();
+          await getNutrientsWhere();
           break;
 
         case "유통기한":
@@ -107,7 +106,7 @@ function Home() {
       </div>
 
       <div className={styles.aboutlogo}>
-        <img className={styles.sizeimage} src={Logo}></img>
+        <img className={styles.titleimage} src={Logo}></img>
       </div>
       <div>
         <div className={styles.divbtnone}>

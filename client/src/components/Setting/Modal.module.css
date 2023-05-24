@@ -1,4 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
+
 .container {
+  font-family: "Jua", sans-serif;
+  font-weight: 040;
   width: 80vw;
   height: 80vh;
   z-index: 999;
@@ -17,4 +21,8 @@
   display: inline;
   right: 10px;
   top: 10px;
+}
+
+.settingBody {
+  margin-left: 10px;
 }

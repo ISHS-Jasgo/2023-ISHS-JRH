@@ -6,21 +6,18 @@
   margin-top: 5vh;
   margin-bottom: 0px;
 }
-.sizeimage {
-  width: 45vh;
-  margin-bottom: 25px;
-}
 
 .myButton {
   font-family: "Jua", sans-serif;
 
   background-color: rgb(102, 209, 252);
   color: white;
-  width: 21vh;
-  height: 21vh;
+  width: 40vw;
+  height: 40vw;
+  max-width: 180px;
+  max-height: 180px;
   border-radius: 15px;
   border: none;
-  border-color: rgb(46, 73, 132);
   font-weight: 400;
   font-size: 1.5em;
   margin-left: 10px;
@@ -52,6 +49,18 @@
   border: none;
   margin-left: auto;
 }
+
+.titleimage {
+  width: 45vh;
+  margin-bottom: 25px;
+}
+
+.titleWraper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
 .line {
   display: flex;
 }
