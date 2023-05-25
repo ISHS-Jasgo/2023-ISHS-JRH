@@ -19,7 +19,11 @@ function Setting() {
 
   return (
     <div className={styles.container}>
-      <Button classname={styles.closeButton} text="X" />
+      <ImgButton
+        classname={styles.closeButton}
+        imgSource="close"
+        imgclassname={styles.decoImgbtn}
+      />
       <h1>설정</h1>
     </div>
   );

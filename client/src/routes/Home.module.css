@@ -11,7 +11,22 @@
   margin-bottom: 25px;
 }
 
-.myButton {
+.myButtonone {
+  font-family: "Jua", sans-serif;
+
+  background-color: rgb(102, 209, 252);
+  color: white;
+  width: 21vh;
+  height: 21vh;
+  border-radius: 15px;
+  border: none;
+  border-color: rgb(46, 73, 132);
+  font-weight: 400;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+.myButtontwo {
   font-family: "Jua", sans-serif;
 
   background-color: rgb(102, 209, 252);
@@ -54,4 +69,9 @@
 }
 .line {
   display: flex;
+}
+
+.decoimgbtn {
+  width: 50px;
+  height: 50px;
 }

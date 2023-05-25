@@ -102,6 +102,7 @@ function Home() {
           classname={styles.settingimg}
           //onClick={() => navigateTo("/settings")}
           imgSource="setting"
+          imgclassname={styles.decoimgbtn}
         />
         <img className={styles.ishslogo} src={ISHSlogo}></img>
       </div>
@@ -112,26 +113,26 @@ function Home() {
       <div>
         <div className={styles.divbtnone}>
           <Button
-            classname={styles.myButton}
+            classname={styles.myButtonone}
             text="영양성분"
             //onClick={() => navigateTo("/nutrients")}
           />
 
           <Button
-            classname={styles.myButton}
+            classname={styles.myButtontwo}
             text="유통기한"
             //onClick={() => navigateTo("/expiration")}
           />
         </div>
         <div className={styles.divbtntwo}>
           <Button
-            classname={styles.myButton}
+            classname={styles.myButtonone}
             text="음식점"
             //onClick={() => navigateTo("/restaurant")}
           />
 
           <Button
-            classname={styles.myButton}
+            classname={styles.myButtontwo}
             text="도움말"
             //onClick={() => navigateTo("/help")}
           />

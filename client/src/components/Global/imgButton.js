@@ -1,15 +1,19 @@
 import setting from "../../images/Setting.png";
+import close from "../../images/Close.png";
 
-function ImgButton({ onClick, classname, imgSource }) {
+function ImgButton({ onClick, classname, imgclassname, imgSource }) {
   let imgSourceObject = imgSource;
   switch (imgSource) {
     case "setting":
       imgSourceObject = setting;
       break;
+    case "close":
+      imgSourceObject = close;
+      break;
   }
   return (
     <button onClick={onClick} className={classname}>
-      <img src={imgSourceObject} width="50px" height="50px" />
+      <img src={imgSourceObject} className={imgclassname} />
     </button>
   );
 }

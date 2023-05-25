@@ -4,6 +4,7 @@ import { speechToText } from "../../js/stt";
 import { positiveResponse } from "../../js/sttHandle";
 import Button from "../Global/Button";
 import styles from "./Modal.module.css";
+import ImgButton from "../Global/ImgButton";
 
 function Modal({ setModalOpen, homeInit }) {
   const closeModal = () => {
@@ -33,7 +34,11 @@ function Modal({ setModalOpen, homeInit }) {
   //아래 버튼에 onClick 없음
   return (
     <div className={styles.container}>
-      <Button classname={styles.closeButton} text="X" />
+      <ImgButton
+        classname={styles.closeButton}
+        imgSource="close"
+        imgclassname={styles.decoImgbtn}
+      />
       <h1>설정</h1>
       <h5>음성 재생 속도</h5>
       <h5>모드 변경</h5>

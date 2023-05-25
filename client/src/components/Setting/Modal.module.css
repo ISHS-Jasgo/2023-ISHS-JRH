@@ -17,4 +17,10 @@
   display: inline;
   right: 10px;
   top: 10px;
+  width: 5px;
+  height: 5px;
+}
+.decoImgbtn {
+  width: 5px;
+  height: 5px;
 }
