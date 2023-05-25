@@ -119,7 +119,7 @@ function Home() {
       <div>
         <div className={styles.divbtnone}>
           <Button
-            classname={styles.myButton}
+            classname={styles.myButtonone}
             text="식품정보"
             //onClick={() => navigateTo("/nutrients")}
           />
@@ -132,7 +132,7 @@ function Home() {
         </div>
         <div className={styles.divbtntwo}>
           <Button
-            classname={styles.myButton}
+            classname={styles.myButtonone}
             text="재활용"
             //onClick={() => navigateTo("/restaurant")}
           />

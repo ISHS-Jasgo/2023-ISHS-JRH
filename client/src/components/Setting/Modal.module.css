@@ -18,11 +18,13 @@
 
 .closeButton {
   position: absolute;
-  display: inline;
+  display: inline-block;
   right: 10px;
   top: 10px;
-  width: 5px;
-  height: 5px;
+  width: 15px;
+  height: 15px;
+  background-color: white;
+  border: none;
 }
 .decoImgbtn {
   width: 5px;

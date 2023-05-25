@@ -3,7 +3,6 @@ import { textToSpeech, getSpeakRate, setSpeakRate } from "../../js/tts";
 import { speechToText } from "../../js/stt";
 import Button from "../Global/Button";
 import styles from "./Modal.module.css";
-import ImgButton from "../Global/ImgButton";
 
 function Modal({ setModalOpen, homeInit }) {
   const [speed, setSpeed] = useState(getSpeakRate());
@@ -29,7 +28,7 @@ function Modal({ setModalOpen, homeInit }) {
         case "1.4":
           currentSpeed = "중간";
           break;
-        case "2":
+        case "1.8":
           currentSpeed = "빠름";
           break;
         default:
@@ -48,7 +47,7 @@ function Modal({ setModalOpen, homeInit }) {
             setSpeed("1.4");
             break;
           case "빠름":
-            setSpeed("2");
+            setSpeed("1.8");
             break;
           default:
             await textToSpeech("다시 한 번 말씀해 주시겠어요?", 2);
@@ -96,7 +95,7 @@ function Modal({ setModalOpen, homeInit }) {
           <label>중간</label>
           <input
             type="radio"
-            value="2"
+            value="1.8"
             checked={speed === "1.8"}
             onChange={() => setSpeed("1.8")}
           />
