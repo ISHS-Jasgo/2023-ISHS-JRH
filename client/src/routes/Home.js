@@ -101,9 +101,15 @@ function Home() {
       <div>
         <div className={styles.divbtnone}>
           <Button
+<<<<<<< Updated upstream
             classname={styles.myButton}
             text="영양성분"
             onClick={() => navigateTo("/nutrients")}
+=======
+            classname={styles.myButtonone}
+            text="식품정보"
+            //onClick={() => navigateTo("/nutrients")}
+>>>>>>> Stashed changes
           />
 
           <Button

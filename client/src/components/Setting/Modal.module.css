@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
+
+.container {
+  font-family: "Jua", sans-serif;
+  font-weight: 040;
+  width: 80vw;
+  height: 80vh;
+  z-index: 999;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background-color: white;
+  border: 1px solid black;
+}
+
+.closeButton {
+  position: absolute;
+  display: inline-block;
+  right: 10px;
+  top: 10px;
+  width: 10px;
+  height: 10px;
+}
+.closeButton::after {
+  display: inline-block;
+
+  content: "\00d7";
+
+  font-size: 14px;
+}
+
+.settingBody {
+  margin-left: 10px;
+}
