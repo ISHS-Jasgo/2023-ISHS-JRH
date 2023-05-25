@@ -74,7 +74,8 @@ function NuResult() {
       <h1 className={styles.pretty}>상품명 | {result.name}</h1>
       <ul className={styles.decoul}>
         <li className={styles.decoli}>
-          칼로리 | {calorie}g{isRateLoaded ? ` / ${rate.calorieRate}%` : null}
+          칼로리 | {calorie}kcal
+          {isRateLoaded ? ` / ${rate.calorieRate}%` : null}
         </li>
         <li className={styles.decoli}>
           탄수화물 | {nutrients.carbohydrate}g

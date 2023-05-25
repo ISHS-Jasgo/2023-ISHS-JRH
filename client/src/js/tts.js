@@ -2,6 +2,8 @@ const audio = new Audio();
 let textQueue = [];
 let TQlength = textQueue.length;
 
+let speakRate = "1.4";
+
 audio.addEventListener("ended", () => {
   if (textQueue.length > 0) {
     textQueue.shift();
@@ -14,7 +16,7 @@ audio.addEventListener("ended", () => {
   }
 });
 
-async function textToSpeech(text, importantRate = 1, speakRate = 1.4) {
+async function textToSpeech(text, importantRate = 1) {
   const audioSource = await getAudioSource(text, speakRate);
 
   if (textQueue.length === 0) {
@@ -54,7 +56,8 @@ async function textToSpeech(text, importantRate = 1, speakRate = 1.4) {
   });
 }
 
-async function getAudioSource(text, speakRate = 1.4) {
+async function getAudioSource(text, speakRate = "1.4") {
+  const speed = Number(speakRate);
   const url =
     "https://texttospeech.googleapis.com/v1/text:synthesize?key=AIzaSyCxnSFvcQd6a17xfB4nDwDafJH_juHSNA0";
   const audioData = {
@@ -68,7 +71,7 @@ async function getAudioSource(text, speakRate = 1.4) {
     },
     audioConfig: {
       audioEncoding: "MP3",
-      speakingRate: speakRate,
+      speakingRate: speed,
     },
   };
   const otherparam = {
@@ -116,4 +119,19 @@ function getSpeed() {
   else return 2;
 }
 
-export { getSpeed, getDevice, textToSpeech, stopTTS };
+function getSpeakRate() {
+  return speakRate;
+}
+
+function setSpeakRate(rate) {
+  speakRate = rate;
+}
+
+export {
+  getSpeed,
+  getDevice,
+  textToSpeech,
+  stopTTS,
+  getSpeakRate,
+  setSpeakRate,
+};
