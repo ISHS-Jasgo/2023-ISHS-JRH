@@ -97,8 +97,8 @@ function Modal({ setModalOpen, homeInit }) {
           <input
             type="radio"
             value="2"
-            checked={speed === "2"}
-            onChange={() => setSpeed("2")}
+            checked={speed === "1.8"}
+            onChange={() => setSpeed("1.8")}
           />
           <label>빠름</label>
         </div>
