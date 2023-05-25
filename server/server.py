@@ -117,6 +117,33 @@ def hi():
     return jsonify({"result": "not found"})
 
 
+@app.route("/recycle", methods=['POST'])
+def recycle():
+    recycle_list = ["무색페트", "플라스틱", "비닐류", "캔류", "종이팩", "일반팩", "멸균팩", "종이", "유리"]
+
+    try:
+        imagestring = request.form['imageInfo']
+    except:
+        return jsonify({"result": 'imagestring died'})
+    try:
+        content = base64.b64decode(imagestring)
+    except:
+        return jsonify({"result": 'base64 died'})
+    image = vision.Image(content= content)
+
+    response = client.text_detection(image=image)
+    texts = response.text_annotations 
+
+    for text in texts:
+        chunk = text.description
+
+        for item in recycle_list:
+            if item == chunk:
+                return jsonify({"result": chunk})
+
+    return jsonify({"result": "not found"})
+
+
 def return_value(time_array):
     if len(time_array) > 0:
         res_date = max(time_array)

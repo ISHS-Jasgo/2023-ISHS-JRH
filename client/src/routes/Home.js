@@ -20,7 +20,7 @@ function Home() {
 
   const init = async () => {
     await textToSpeech(
-      "식품 정보, 유통기한, 도움말, 설정 중 원하시는 기능을 말씀해주세요.",
+      "식품 정보, 유통기한, 재활용 방법, 도움말, 설정 중 원하시는 기능을 말씀해주세요.",
       3
     );
     const getButton = async () => {
@@ -57,6 +57,13 @@ function Home() {
         case "유통기한":
           await textToSpeech("유통기한 찾기 화면으로 이동합니다.", 2);
           navigateTo("/expiration");
+          break;
+
+        case "재활용 방법":
+        case "재활용방법":
+        case "재활용":
+          await textToSpeech("재활용 방법 찾기 화면으로 이동합니다.", 2);
+          navigateTo("/recycle");
           break;
 
         case "도움말":
@@ -112,8 +119,8 @@ function Home() {
       <div>
         <div className={styles.divbtnone}>
           <Button
-            classname={styles.myButtonone}
-            text="영양성분"
+            classname={styles.myButton}
+            text="식품정보"
             //onClick={() => navigateTo("/nutrients")}
           />
 
@@ -125,8 +132,8 @@ function Home() {
         </div>
         <div className={styles.divbtntwo}>
           <Button
-            classname={styles.myButtonone}
-            text="음식점"
+            classname={styles.myButton}
+            text="재활용"
             //onClick={() => navigateTo("/restaurant")}
           />
 
