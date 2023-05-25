@@ -6,6 +6,8 @@ import Expiration from "./routes/Expiration/Expiration";
 import ExResult from "./routes/Expiration/ExResult";
 import Restaurant from "./routes/Restaurant/Restaurant";
 import ReResult from "./routes/Restaurant/ReResult";
+import Recycle from "./routes/Recycle/Recycle";
+import Rcresult from "./routes/Recycle/Rcresult";
 import Help from "./routes/Help/Help";
 import First from "./routes/First";
 
@@ -21,6 +23,8 @@ function App() {
         <Route path="/expiration" element={<Expiration />} />
         <Route path="/restaurant" element={<Restaurant />} />
         <Route path="/restaurant/result" element={<ReResult />} />
+        <Route path="/recycle" element={<Recycle />} />
+        <Route path="/recycle/result" element={<Rcresult />} />
         <Route path="/home" element={<Home />} />
         <Route path="/help" element={<Help />} />
         <Route path={`${process.env.PUBLIC_URL}/`} element={<First />} />

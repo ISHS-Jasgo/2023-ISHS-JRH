@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { textToSpeech, stopTTS } from "../../js/tts";
+import { textToSpeech } from "../../js/tts";
 import Video from "../../components/Global/Video";
 import Canvas from "../../components/Global/Canvas";
 
@@ -10,7 +10,6 @@ function Expiration() {
   const [resultArr, setResultArr] = useState([]);
 
   const isFirstLoaded = useRef(true);
-  const search = useRef(true);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
 
@@ -64,17 +63,13 @@ function Expiration() {
     let intervalId = 0;
 
     const notFound = async () => {
-      stopTTS();
       await textToSpeech("유통기한이 감지되지 않았습니다.", 2);
-      stopTTS();
       await textToSpeech("홈 화면으로 이동합니다.", 2);
-      stopTTS();
       navigateTo("/home");
     };
 
     const init = async () => {
       let cycleCount = 0;
-      stopTTS();
       await textToSpeech("유통기한 탐색을 시작합니다.", 2);
       const id = setInterval(() => {
         if (intervalId === 0) intervalId = id;
@@ -99,7 +94,6 @@ function Expiration() {
     init();
     return () => {
       clearInterval(intervalId);
-
       window.removeEventListener("popstate", preventGoBack);
     };
   }, []);
@@ -108,7 +102,6 @@ function Expiration() {
     const dateDetected = async () => {
       if (isDateDetected) {
         console.log("date detected!");
-        stopTTS();
         await textToSpeech("유통기한이 감지되었습니다.", 1);
       }
     };
@@ -124,11 +117,9 @@ function Expiration() {
       };
 
       if (resultArr.length >= 10) {
-        search.current = false;
         let { res, repeatCnt } = getMode(resultArr);
         if (res === "not found") {
           console.log("failed.. begin to search");
-          search.current = true;
           init();
           await textToSpeech("탐색중.", 0);
         } else {
@@ -144,8 +135,8 @@ function Expiration() {
   }, [resultArr]);
 
   useEffect(() => {
-    //console.log(isFirstLoaded.current);
     if (!isFirstLoaded.current && expiration !== "") {
+      console.log("success!");
       console.log(`Expiration Date is ${expiration}`);
       navigateTo("/expiration/result", { resDate: expiration });
     } else {
@@ -171,7 +162,6 @@ function getMode(arr) {
   let res = "";
   let resNum = 0;
   for (let key in obj) {
-    //console.log(key);
     if (resNum < obj[key]) {
       res = key;
       resNum = obj[key];

@@ -103,6 +103,32 @@ function Nutrients() {
   };
 
   useEffect(() => {
+    let intervalId = 0;
+
+    const notFound = async () => {
+      await textToSpeech("품목보고번호가 감지되지 않았습니다.", 2);
+      await textToSpeech("홈 화면으로 이동합니다.", 2);
+      navigateTo("/home");
+    };
+
+    const init = async () => {
+      let cycleCnt = 0;
+      await textToSpeech("품목보고번호 탐색을 시작합니다.", 2);
+      const id = setInterval(() => {
+        if (intervalId === 0) intervalId = id;
+        if (cycleCnt >= 70) {
+          console.log("not found");
+          clearInterval(intervalId);
+          notFound();
+        }
+        if (search.current) {
+          drawToCanvas();
+          sendImage();
+          cycleCnt += 1;
+        }
+      }, 350);
+    };
+
     const preventGoBack = () => {
       window.history.pushState(null, "", window.location.href);
     };
@@ -110,17 +136,9 @@ function Nutrients() {
     window.history.pushState(null, "", window.location.href);
     window.addEventListener("popstate", preventGoBack);
 
-    textToSpeech("품목보고번호 탐색을 시작합니다.", 2);
-    const id = setInterval(() => {
-      if (search.current) {
-        drawToCanvas();
-        sendImage();
-      }
-    }, 350);
-
+    init();
     return () => {
-      clearInterval(id);
-      stopTTS();
+      clearInterval(intervalId);
       window.removeEventListener("popstate", preventGoBack);
     };
   }, []);
