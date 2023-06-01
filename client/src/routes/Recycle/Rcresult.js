@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { textToSpeech } from "../../js/tts";
+import { speechToText } from "../../js/stt";
 import { positiveResponse } from "../../js/sttHandle";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./RcResult.module.css";
@@ -14,6 +15,12 @@ import PaperCarton from "../../images/PaperCarton.png";
 import Vinyl from "../../images/Vinyl.jpg";
 
 function RcResult() {
+  const navigate = useNavigate();
+  const navigateTo = (path, params) => {
+    navigate(path, { state: params });
+    console.log("Redirecting...");
+  };
+
   const location = useLocation();
   const recycle = location.state.resRecycle;
 
@@ -34,7 +41,8 @@ function RcResult() {
           <img className={styles.forimg} src={NonColorPET}></img>
         </div>
       );
-      read = "무색페트류 입니다.";
+      read =
+        "무색페트류 입니다. 내용물을 비우고 라벨을 제거한 후 압착하여 투명 페트병 전용 배출함에 배출해야합니다.";
       break;
 
     case "플라스틱류":
@@ -48,7 +56,8 @@ function RcResult() {
           <img className={styles.forimg} src={Plastic}></img>
         </div>
       );
-      read = "플라스틱류 입니다.";
+      read =
+        "플라스틱류 입니다. 내용물을 비우고 이물질을 제거해 배출해야합니다. 다른 재질로 된 뚜껑이 있다면 제거해 배출해야합니다.";
       break;
 
     case "비닐류":
@@ -56,16 +65,14 @@ function RcResult() {
         <div className={styles.setfont}>
           <h1 className={styles.typerecyle}>비닐류</h1>
           <ul className={styles.decoul}>
-            <li>
-              투명 비닐봉투에 넣어 배출, 음식물 등 이물질이 묻은 경우 깨끗이
-              씻어 배출
-            </li>
+            <li>이물질을 제거해 투명 비닐봉투에 배출</li>
             <li>이물질 제거가 어려운 경우 일반 종량제 봉투에 배출</li>
           </ul>
           <img className={styles.forimg} src={Vinyl}></img>
         </div>
       );
-      read = "비닐류 입니다.";
+      read =
+        "비닐류 입니다. 이물질을 제거하고 투명 비닐봉투에 넣어 배출해야합니다. 이물질 제거가 어려운 경우 일반 종량제 봉투에 넣어서 배출해야합니다.";
       break;
 
     case "캔류":
@@ -74,13 +81,13 @@ function RcResult() {
           <h1 className={styles.typerecyle}>캔류</h1>
           <ul className={styles.decoul}>
             <li>내용물을 비우고 이물질을 제거해 말린 후 배출</li>
-            <li>플라스틱 뚜껑 등 다른 재질은 제거 후 배출</li>
+            <li>다른 재질은 제거 후 배출</li>
           </ul>
           <img className={styles.forimg} src={Can}></img>
         </div>
       );
       read =
-        "캔류 입니다. 내용물을 비우고 이물질을 제거해 말린 후 배출해야합니다. 플라스틱 뚜껑 등 캔류와 다른 재질은 제거 후 배출해야합니다.";
+        "캔류 입니다. 내용물을 비우고 이물질을 제거해 말린 후 배출해야합니다. 캔류와 다른 재질은 제거 후 배출해야합니다.";
       break;
 
     case "종이팩":
@@ -181,12 +188,19 @@ function RcResult() {
       break;
 
     default:
-      ret = null;
-      read = null;
+      console.log("no way!");
   }
 
   const readRecyle = async () => {
-    await textToSpeech(read);
+    await textToSpeech(read, 2);
+    await textToSpeech("분리배출 방법을 다시 들려드릴까요?", 2);
+    const userRes = await speechToText(3000);
+    if (positiveResponse.has(userRes)) {
+      readRecyle();
+    } else {
+      await textToSpeech("첫 화면으로 이동합니다.", 2);
+      navigateTo("/home");
+    }
   };
 
   readRecyle();

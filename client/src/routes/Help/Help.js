@@ -17,7 +17,10 @@ function Help() {
     const readHelp = async () => {
       await explainBtn();
 
-      await textToSpeech("이 앱에 대한 정보를 알려드릴까요?", 1);
+      await textToSpeech(
+        "이 앱의 개발자와 이 앱의 개발 배경에 대해 설명해드릴까요?",
+        1
+      );
       const userRes = await speechToText(3000);
       if (positiveResponse.has(userRes)) {
         await explainApp();

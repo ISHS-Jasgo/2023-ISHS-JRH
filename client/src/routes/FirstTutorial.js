@@ -76,7 +76,7 @@ function FirstTutorial() {
         <div className={styles.divbtntwo}>
           <Button
             classname={styles.myButtonone}
-            text="재활용 방법"
+            text="재활용"
             //onClick={() => navigateTo("/restaurant")}
           />
 
