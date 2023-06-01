@@ -66,6 +66,7 @@ function Recycle() {
     const init = async () => {
       let totalCycleCnt = 0;
       await textToSpeech("재활용 마크 탐색을 시작합니다.", 2);
+      await textToSpeech("카메라를 식품에 가까이 대어주세요.", 2);
       const id = setInterval(() => {
         if (intervalId === 0) intervalId = id;
         if (totalCycleCnt >= 70) {

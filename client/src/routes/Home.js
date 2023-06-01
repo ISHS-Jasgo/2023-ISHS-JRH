@@ -134,13 +134,13 @@ function Home() {
           <Button
             classname={styles.myButtonone}
             text="재활용"
-            onClick={() => navigateTo("/recycle")}
+            //onClick={() => navigateTo("/recycle")}
           />
 
           <Button
             classname={styles.myButtontwo}
             text="도움말"
-            //onClick={() => navigateTo("/help")}
+            onClick={() => navigateTo("/help")}
           />
         </div>
       </div>
