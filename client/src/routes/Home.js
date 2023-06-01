@@ -134,7 +134,7 @@ function Home() {
           <Button
             classname={styles.myButtonone}
             text="재활용"
-            //onClick={() => navigateTo("/restaurant")}
+            onClick={() => navigateTo("/recycle")}
           />
 
           <Button

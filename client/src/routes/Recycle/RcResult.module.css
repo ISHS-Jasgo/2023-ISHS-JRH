@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
+
+.setfont {
+  font-family: "Jua", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.typerecyle {
+  background-color: rgba(92, 206, 251, 0.824);
+  font-weight: 400;
+  font-size: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+}
+.decoul {
+  width: 80%;
+  border: solid black;
+  border-radius: 15px;
+  padding-inline-end: 10px;
+  padding-inline-start: 30px;
+}
