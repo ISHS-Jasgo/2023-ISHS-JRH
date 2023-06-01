@@ -69,7 +69,7 @@ function Recycle() {
       await textToSpeech("카메라를 식품에 가까이 대어주세요.", 2);
       const id = setInterval(() => {
         if (intervalId === 0) intervalId = id;
-        if (totalCycleCnt >= 70) {
+        if (totalCycleCnt >= 300) {
           console.log("not found");
           clearInterval(id);
           notFound();

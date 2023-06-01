@@ -10,6 +10,7 @@ import Recycle from "./routes/Recycle/Recycle";
 import Rcresult from "./routes/Recycle/Rcresult";
 import Help from "./routes/Help/Help";
 import First from "./routes/First";
+import FirstTutorial from "./routes/FirstTutorial";
 
 function App() {
   //<Route path={`${process.env.PUBLIC_URL}/`} element={<Home />} />
@@ -29,6 +30,7 @@ function App() {
         <Route path="/help" element={<Help />} />
         <Route path={`${process.env.PUBLIC_URL}/`} element={<First />} />
         <Route path="/" element={<First />} />
+        <Route path="/tutorial" element={<FirstTutorial />} />
       </Routes>
     </Router>
   );

@@ -10,7 +10,7 @@ function First() {
   };
 
   const onClick = () => {
-    navigateTo("/home");
+    navigateTo("/tutorial");
   };
 
   useEffect(() => {

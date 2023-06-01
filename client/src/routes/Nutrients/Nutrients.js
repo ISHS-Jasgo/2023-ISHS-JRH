@@ -117,7 +117,7 @@ function Nutrients() {
       await textToSpeech("카메라를 식품에 가까이 대어주세요.", 2);
       const id = setInterval(() => {
         if (intervalId === 0) intervalId = id;
-        if (cycleCnt >= 70) {
+        if (cycleCnt >= 300) {
           console.log("not found");
           clearInterval(intervalId);
           notFound();
