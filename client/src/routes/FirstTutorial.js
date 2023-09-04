@@ -46,50 +46,6 @@ function FirstTutorial() {
 
   return (
     <div>
-      <div className={styles.line}>
-        <ImgButton
-          classname={styles.settingimg}
-          //onClick={() => navigateTo("/settings")}
-          imgSource="setting"
-          imgclassname={styles.decoimgbtn}
-        />
-        <img className={styles.ishslogo} src={ISHSlogo}></img>
-      </div>
-
-      <div className={styles.aboutlogo}>
-        <img className={styles.titleimage} src={Logo}></img>
-      </div>
-      <div>
-        <div className={styles.divbtnone}>
-          <Button
-            classname={styles.myButtonone}
-            text="식품정보"
-            //onClick={() => navigateTo("/nutrients")}
-          />
-
-          <Button
-            classname={styles.myButtontwo}
-            text="유통기한"
-            //onClick={() => navigateTo("/expiration")}
-          />
-        </div>
-        <div className={styles.divbtntwo}>
-          <Button
-            classname={styles.myButtonone}
-            text="재활용"
-            //onClick={() => navigateTo("/restaurant")}
-          />
-
-          <Button
-            classname={styles.myButtontwo}
-            text="도움말"
-            //onClick={() => navigateTo("/help")}
-          />
-        </div>
-      </div>
-      <h6 style={{ margin: "0px" }} align="center">
-        시각장애인용 모드입니다. 버튼이 눌리지 않습니다.
-      </h6>
     </div>
   );
 }

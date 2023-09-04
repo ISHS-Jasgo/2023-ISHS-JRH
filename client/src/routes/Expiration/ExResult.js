@@ -92,25 +92,6 @@ function ExResult() {
 
   return (
     <div>
-      <h1 className={styles.description}>
-        상품 유통기한 <span className={styles.textcolor}>{text}</span>
-      </h1>
-      <div>
-        {caneat === 0 && (
-          <p className={styles.nope}>건강에 위험할 수 있습니다.</p>
-        )}
-      </div>
-      <div>
-        {caneat === 1 && (
-          <p className={styles.warn}>
-            제품의 유통기한이 얼마남지 않았습니다. 빠른 시일 내에 섭취하시길
-            권고드립니다.
-          </p>
-        )}
-      </div>
-      <div>
-        {caneat === 2 && <p className={styles.caneat}>먹어도 좋습니다.</p>}
-      </div>
     </div>
   );
 }

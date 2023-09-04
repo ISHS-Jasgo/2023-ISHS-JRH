@@ -90,7 +90,7 @@ def hello():
 
 
 @app.route("/pummok", methods=['POST'])
-def hi():
+def pummok():
     try:
         imagestring = request.form['imageInfo']
     except:

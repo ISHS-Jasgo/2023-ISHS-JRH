@@ -71,42 +71,6 @@ function NuResult() {
 
   return (
     <div>
-      <h1 className={styles.pretty}>상품명 | {result.name}</h1>
-      <ul className={styles.decoul}>
-        <li className={styles.decoli}>
-          칼로리 | {calorie}kcal
-          {isRateLoaded ? ` / ${rate.calorieRate}%` : null}
-        </li>
-        <li className={styles.decoli}>
-          탄수화물 | {nutrients.carbohydrate}g
-          {isRateLoaded ? ` / ${rate.carbohydrateRate}%` : null}
-        </li>
-        <li className={styles.decoli}>
-          단백질 | {nutrients.protein}g
-          {isRateLoaded ? ` / ${rate.proteinRate}%` : null}
-        </li>
-        <li className={styles.decoli}>
-          지방 | {nutrients.fat}g{isRateLoaded ? ` / ${rate.fatRate}%` : null}
-        </li>
-        <li className={styles.decoli}>
-          당류 | {nutrients.sugar}g
-          {isRateLoaded ? ` / ${rate.sugarRate}%` : null}
-        </li>
-        <li className={styles.decoli}>
-          나트륨 | {nutrients.sodium}mg
-          {isRateLoaded ? ` / ${rate.sodiumRate}%` : null}
-        </li>
-        <li className={styles.decoli}>
-          콜레스테롤 | {nutrients.cholesterol}mg
-          {isRateLoaded ? ` / ${rate.cholesterolRate}%` : null}
-        </li>
-        <li className={styles.decoli}>
-          포화지방 | {nutrients.saturatedFat}g
-          {isRateLoaded ? ` / ${rate.saturatedFatRate}%` : null}
-        </li>
-
-        <li className={styles.decolisad}>트랜스지방 | {nutrients.transFat}g</li>
-      </ul>
     </div>
   );
 }
